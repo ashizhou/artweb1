@@ -85,67 +85,7 @@ router.get('/personalInfo', async(ctx,next)=>{
 })
 
 //edit user info
-// //upload image
-// router.post('/personalImg', async(ctx,next)=>{
-//     console.log(ctx.session.id)
-//     let base64Data = ctx.request.body.avator.replace(/^data:image\/\w+;base64,/, "");
-//  //  let base64Data = ctx.request.body.avator.substring(22);
-  
-//     let dataBuffer = new Buffer(base64Data, 'base64');
-//    // let upDate = new Date();
-//     let getName = (moment().format('YYYY-MM-DD')).toString() + '-' +1000*(Math.random().toFixed(2)) + '.png';
-//         console.log(getName)
-    
-//     let upload = await new Promise((reslove,reject)=>{
-//         fs.writeFile('./public/images/' + getName, dataBuffer, err => { 
-//             if (err) {
-//                 throw err;
-//                 reject(false)
-//             };
-//             reslove(true)
-         
-//         });            
-//     })
-//     if(upload){
-//         await userModel.updateUserImg([getName,ctx.session.id])
-//             .then(result=>{
-//                 console.log(result);
-//                 console.log('头像上传成功') 
-//                 ctx.session.avator = getName;
-//                 ctx.body = true;
-//             }).catch(err=>{
-//                 console.log(err)
-//             })
-//     }else{  
-//         console.log('上传失败');
 
-//     }
-//    /* console.log(ctx.request.body.avator)
-//     let form = formidable.parse(ctx.request);
-//         form.encoding = 'utf-8';
-//         form.keepExtensions = true;
-//         let uploadDir = '/public/images'
-//         let imgPlay = new Promise((resolve, reject) => {
-//             form((opt, {fields, files})=> {
-//             let articleId = fields.articleId;
-//                 let filename = files.img.name;
-//                 let avatarName = Date.now() + '_' + filename;
-//                 let readStream = fs.createReadStream(files.img.path)
-//                 let writeStream = fs.createWriteStream(uploadDir + avatarName);
-//                 readStream.pipe(writeStream);
-//                         // fs.rename(files.file.path, uploadDir + avatarName); //window报错了重命名
-//                     resolve({
-//                         url:'http://localhost:8080' + '/' + uploadDir + avatarName
-//                     })
-//                     // http://localhost:6001/public/upload/1.png
-//             })
-//             });
-//             let imageData = await imgPlay;
-//             ctx.body = {flag: '1' ,msg:'',data: imageData} 
-// */
- 
-    
-// })
 //edit user sql
 router.post('/personalInfo',async(ctx,next)=>{
     console.log(ctx.request.body)

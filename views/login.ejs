@@ -123,7 +123,7 @@
              console.log(text)  //服务器返回的对象
                if(text == 3){
                    fadeOut();
-                   swal("Login Successful", "Good Job!", "success");
+                   swal({title:"Login Successful", text:"Good Job!", type:"success",showConfirmButton:false});
                    setTimeout(()=>{
                     window.location.reload();
                 },1000)
