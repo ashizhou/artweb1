@@ -17,7 +17,7 @@
     <form  role="form">
         <ul>
             <% if(session&&session.user===user.name){ %>
-            <li><span>头像</span><img src="images/<%= user.avator %>" alt="" class="img-head"><button class="btn upload">点击上传<input type="file" id="head-img" accept="image/*"></button></li>
+            <li><span>头像</span><img src="images/<%= user.avator %>" alt="" class="img-head"><input type="hidden"></li>
             <% }else{ %>
                 <li><span>头像</span><img src="images/<%= user.avator %>" alt="" class="img-head"><input type="hidden"></li>
 
