@@ -23,10 +23,16 @@
         border: 5px solid rgba(255, 255, 255, 0.3);
         border-radius: 50%;
     }
-    .aboutHead h2,.aboutHead p{
+    .aboutHead h1,.aboutHead p{
         text-align: center;
         color: #fff;
+    }
+    .aboutHead h1{
+        padding-top:20px;
         text-shadow: 2px 2px 2px #999;
+    }
+    aboutHead p{
+        padding-top:10px;
     }
     .aboutContent{
         width: 70%;
@@ -45,12 +51,6 @@
     }
     .aboutContent p{
         height: 30px;
-
-    }
-    .aboutContent footer{
-        padding-top: 15px;
-        text-align: center;
-        color: gray;
     }
 </style>
 <script src="./js/ajax.js"></script>
@@ -62,9 +62,11 @@
 
 
 <div class="aboutHead">
+    <div class="row">
     <img src="./img/aboutlogo.png" alt="">
-    <h2>The Web Gallery of Art </h2>
-    <p>Not what man knows but what man feels, concerns art. All else is science.</p>
+    </div>
+    <h1>The Web Gallery of Art </h1>
+    <p >Not what man knows but what man feels, concerns art. All else is science.</p>
 </div>
 <div class="aboutContent">
     <h3>About Wga</h3>

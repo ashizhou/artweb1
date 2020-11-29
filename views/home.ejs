@@ -10,18 +10,18 @@
     <% include login %>
 <% } %>
 
-<header class="article-tap padmar">
+<div class="article-tap padmar">
     <ul class="tip">
-        <li class="all"><a href="javascript:;" class="label label-default">全部</a></li>
+        <li class="all"><a href="javascript:;" class="label label-default">All</a></li>
         <li class="javascript"><a href="javascript:;" class="label label-default">javascript</a></li>
         <li class="html"><a href="javascript:;" class="label label-default">html</a></li>
         <li class="css"><a href="javascript:;" class="label label-default">css</a></li>
         <li class="node"><a href="javascript:;" class="label label-default">node</a></li>
         <li class="other"><a href="javascript:;" class="label label-default">其他</a></li>
     </ul>
-</header>
+</div>
 
-<article class="article-list">
+<div class="article-list">
         <% articles.forEach(function(post){ %>
     <div class="content">
         <a href="/personal/<%= post.name %>" target="_blank" title=" <%= post.name %> " class="post-author">
@@ -43,10 +43,10 @@
         <% if(!postsPageLength){ %>
             <div class="nothing">
                     <p><span class="glyphicon glyphicon-list-alt"></span></p>
-                    <p>这里什么都没有</p>
+                    <p>Nothing here</p>
             </div>
         <% } %>
-</article>
+        </div>
 <div style="width:50%;margin-left:25%;margin-top: 30px;text-align:center;" class="pagination" id="page"></div>	
 <script src="/js/pagination.js"></script>
 <script>
@@ -61,8 +61,8 @@
 			selector: '#page',
 			totalPage: '<%= postsPageLength %>',
 			currentPage: 1,
-			prev: '上一页',
-			next: '下一页',
+			prev: 'Previous Page',
+			next: 'Next Page',
 			first: true,
 			last: true,
 			showTotalPage: true,
