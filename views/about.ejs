@@ -1,0 +1,88 @@
+<% include header %>
+<% if(!session.user){ %>
+<link rel="stylesheet" href="/css/login.css">
+<% } %>
+<link rel="stylesheet" href="/css/home.css">
+<style>
+    .aboutHead{
+        height: 300px;
+        width: 70%;
+        margin: auto;
+        margin-top: 30px;
+        padding-top: 15px;
+        background: url('./img/01.jpg');
+        background-size: contain;
+        border: 5px solid rgba(255, 255, 255, 0.3);
+    }
+    .aboutHead img{
+        width: 100px;
+        height: 100px;
+        display: block;
+        margin: auto;
+        margin-bottom: -15px;
+        border: 5px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+    }
+    .aboutHead h2,.aboutHead p{
+        text-align: center;
+        color: #fff;
+        text-shadow: 2px 2px 2px #999;
+    }
+    .aboutContent{
+        width: 70%;
+        margin: auto;
+        padding: 15px 5% 25px 10%;
+        background: #fff;
+    }
+    .aboutContent h3{
+        height: 90px;
+        line-height: 90px;
+    }
+    .aboutContent ul li{
+        height: 40px;
+        line-height: 40px;
+        list-style: square url("./img/arrow.png");
+    }
+    .aboutContent p{
+        height: 30px;
+
+    }
+    .aboutContent footer{
+        padding-top: 15px;
+        text-align: center;
+        color: gray;
+    }
+</style>
+<script src="./js/ajax.js"></script>
+<% include nav %>
+
+<% if(!session.user){ %>
+    <% include login %>
+<% } %>
+
+
+<div class="aboutHead">
+    <img src="./img/aboutlogo.png" alt="">
+    <h2>The Web Gallery of Art </h2>
+    <p>Not what man knows but what man feels, concerns art. All else is science.</p>
+</div>
+<div class="aboutContent">
+    <h3>About Wga</h3>
+    <ul>
+        <li>The Web Gallery of Art is a searchable database of European fine arts and architecture (3rd-19th centuries)</li>
+        <li>currently containing over 49500 reproductions</li>
+        <li>Gallery online since 1996</li>
+    </ul>
+    <h3>About me</h3>
+    <p>Yixiao Zhou</p>
+    <ul>
+        <li>Kenyon College 2021 </li>
+        <li>Economics Philosophy </li>
+        <li>Data Mining + UIUX</li>
+    </ul>
+    <h3>Contact</h3>
+    <p>github: https://github.com/ashizhou</p>
+    <p>email：zhou1@kenyon.com</p>
+</div>
+</body>
+</html>

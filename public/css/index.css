@@ -1,0 +1,119 @@
+body,
+header,
+ul,
+li,
+p,
+div,
+html,
+span,
+h3,
+a {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #f4f5f5;
+    font-size: 16px;
+    padding-top: 100px
+}
+
+ul,
+li {
+    list-style: none;
+}
+
+a {
+    outline: none;
+}
+
+
+input {
+    outline: none;
+}
+
+.padmar {
+    margin: 20px 0 20px 0;
+    padding: 15px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    background: #fff;
+}
+
+/*navbar*/
+.nav-link {
+    text-transform: uppercase;
+    font-weight: 500;
+    color: #fff
+}
+
+.navbar-brand .nav-link {
+    display: inline-block;
+    margin-right: -30px
+}
+
+table {
+    border-top: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+}
+
+table td,
+table th {
+    border-bottom: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    padding: 3px 5px;
+}
+
+table th {
+    border-bottom: 2px solid #ccc;
+    text-align: center;
+}
+
+/* blockquote 样式 */
+blockquote {
+    display: block;
+    border-left: 8px solid #d0e5f2;
+    padding: 5px 10px;
+    margin: 10px 0;
+    line-height: 1.4;
+    font-size: 100%;
+    background-color: #f1f1f1;
+}
+
+/* code 样式 */
+code {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    background-color: #f1f1f1;
+    border-radius: 3px;
+    padding: 3px 5px;
+    margin: 0 3px;
+}
+
+pre code {
+    display: block;
+}
+
+/* ul ol 样式 */
+/* ul, ol {
+    margin: 10px 0 10px 20px;
+  } */
+
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    line-height: 60px;
+    /* Vertically center the text there */
+    background-color: #f5f5f5;
+}
+
+.footer>.container {
+    padding-right: 15px;
+    padding-left: 15px;
+}
