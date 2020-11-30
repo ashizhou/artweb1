@@ -74,6 +74,12 @@ router.post('/articles/page', async(ctx, next) => {
   
     })
 
+router.get('/about',async(ctx,next)=>{
+    await ctx.render('about',{
+        session:ctx.session
+    })
+})
+
 // 单篇文章页
 // router.get('/articledetail/:postId', async(ctx, next) => {
 //     let comments,
@@ -162,11 +168,6 @@ router.post('/articles/page', async(ctx, next) => {
 
 // })
 
-// //关于作者
-// router.get('/about',async(ctx,next)=>{
-//     await ctx.render('about',{
-//         session:ctx.session
-//     })
-// })
+
 
 module.exports = router;

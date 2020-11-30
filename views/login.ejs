@@ -112,10 +112,6 @@
     loginUp.onclick = function () { //注册
         var data1 = 'username=' + signUp["username"].value + '&' + 'pass='+ signUp["pass"].value + '&' + 'repeatpass=' + signUp["repeatpass"].value;
         var  reg = /^[\u4E00-\u9FA5]{2,5}$/;
-      /*  if(!reg.test(signUp["username"].value)){
-            signUp["username"].classList.add("tips");
-            signUp['username'].value()
-        } */
         ajax('post','/signup',data1,"application/x-www-form-urlencoded");
         xhr.onreadystatechange = function () {
             if(xhr.readyState==4&&xhr.status>=200&&xhr.status<300){
@@ -123,14 +119,14 @@
              console.log(text)  //服务器返回的对象
                if(text == 3){
                    fadeOut();
-                   swal({title:"Login Successful", text:"Good Job!", type:"success",showConfirmButton:false});
+                   swal({title:"Login Successful", text:"Good Job!", type:"success", showConfirmButton: false});
                    setTimeout(()=>{
                     window.location.reload();
                 },1000)
                //    document.getElementsByClassName('login')[0].outerHTML = "<li class='users'><a href='/'>"+signUp["username"].value+ "(=^ ^=)" +"</a></li>"
                }else{
                 fadeOut();
-                swal("Username already exists", "Please enter a different username", "error");
+                swal({title:"Username already exists", text:"Please enter a different username", type:"error", showConfirmButton: false});
                }
                
             }
@@ -155,9 +151,9 @@
                     window.location.reload();
                 },1000)
                }else if(text === 2){
-                swal("Incorrect login credentials", "try again", "warning");
+                swal({title:"Incorrect login credentials", text:"try again", type:"warning",showConfirmButton: false });
                }else{
-                swal("Username does not exist", "try again", "error");
+                swal({title:"Username does not exist", text:"try again", type:"error",showConfirmButton: false});
                }
                
             }

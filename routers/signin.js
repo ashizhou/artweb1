@@ -21,7 +21,7 @@ router.post('/signin', async(ctx, next) => {
             var res = JSON.parse(JSON.stringify(result))
 
             if (name === res[0]['name']&&(md5(pass + 'asd&$BH&*') === res[0]['pass'])) {
-                    console.log('登录成功')
+                    console.log('Signed In')
                     ctx.body = {
                         code: 1,
                     }
@@ -47,7 +47,7 @@ router.post('/signin', async(ctx, next) => {
             ctx.body = {
                 code: 3 //账号不存在+
             }
-            console.log('用户名或密码错误!')
+            console.log('Wrong Creditential Info')
 
         })
 
