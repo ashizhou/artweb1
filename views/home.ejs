@@ -7,124 +7,143 @@
 <% include nav %>
 
 <% if(!session.user){ %>
-    <% include login %>
+<% include login %>
 <% } %>
+
 
 <div class="article-tap padmar">
     <ul class="tip">
         <li class="all"><a href="javascript:;" class="label label-default">All</a></li>
-        <li class="javascript"><a href="javascript:;" class="label label-default">javascript</a></li>
-        <li class="html"><a href="javascript:;" class="label label-default">html</a></li>
-        <li class="css"><a href="javascript:;" class="label label-default">css</a></li>
-        <li class="node"><a href="javascript:;" class="label label-default">node</a></li>
-        <li class="other"><a href="javascript:;" class="label label-default">其他</a></li>
+        <li class="Still-Life"><a href="javascript:;" class="label label-default">Still-Lifes</a></li>
+        <li class="Seascape"><a href="javascript:;" class="label label-default">Seascapes</a></li>
+        <li class="Flowers"><a href="javascript:;" class="label label-default">Flowers Still-Lifes</a></li>
+        <li class="Vanitas"><a href="javascript:;" class="label label-default">Vanitas Still-Lifes</a></li>
+        <li class="Annunciation"><a href="javascript:;" class="label label-default">The Annunciation</a></li>
     </ul>
 </div>
 
-<div class="article-list">
-        <% articles.forEach(function(post){ %>
-    <div class="content">
-        <a href="/personal/<%= post.name %>" target="_blank" title=" <%= post.name %> " class="post-author">
-            <span class="author"><%= post.name %></span>
-            <span class="times"><%= post.moment %></span> &nbsp;&nbsp;
-            <span class="label label-info"><%= post.type %></span> 
-        </a>
-        <a href="/articledetail/<%= post.id %>" target="_blank">           
-            <h4 class="title"><%= post.title %></h4>
-        
-        <div class="content-fo">
-            <span class="glyphicon glyphicon-heart"></span><span><%= post.likes %></span>
-            <span class="glyphicon glyphicon-comment"></span><span><%= post.comments %></span>&nbsp;&nbsp;&nbsp;
-            <span class="pv-item">阅读量&nbsp;<span class="pv"><%= post.pv %></span></span>
+<div class="center-block article-list">
+    <% articles.forEach(function(post){ %>
+    <div class="content row">
+        <div class="col-md-6">
+            <a href="/articledetail/<%= post.id %>" target="_blank">
+                <img src="<%=post.IMGURL%>" loading="lazy" alt="Unnamed image" width="400" height="auto">
+            </a>
         </div>
-    </a>
-    </div>
-        <% }) %>
-        <% if(!postsPageLength){ %>
-            <div class="nothing">
-                    <p><span class="glyphicon glyphicon-list-alt"></span></p>
-                    <p>Nothing here</p>
+        <div class="col-md-6">
+            <div class="content-info">
+                <h3 class="title"><%= post.Title %></h3>
+                <p class="author"><%= post.Author %></p>
+                <p class="times"><%= post.Date %></p>
+                <p class="label label-info"><%= post.Type %></p>
+                <span><i class="fa fa-heart" style="color:red"></i>&nbsp;<%= post.likes %>&nbsp;&nbsp;&nbsp;&nbsp;<i
+                        class="fa fa-comment"
+                        style="color: skyblue"></i>&nbsp;<%= post.comments %>&nbsp;&nbsp;&nbsp;&nbsp;<span
+                        class="pv-item">views&nbsp;<span class="pv"><%= post.pv %></span></span>
+
             </div>
-        <% } %>
         </div>
-<div style="width:50%;margin-left:25%;margin-top: 30px;text-align:center;" class="pagination" id="page"></div>	
+    </div>
+
+    <% }) %>
+    <% if(!postsPageLength){ %>
+    <div class="nothing">
+        <p><i class="fa fa-list-alt"></i></p>
+        <p>Nothing here</p>
+    </div>
+    <% } %>
+</div>
+<div style="width:50%; margin-left:25%; margin-top: 30px;text-align:center;" class="pagination" id="page"></div>
 <script src="/js/pagination.js"></script>
 <script>
-    window.onload = function () { 
-        if('<%= type %>'==0){
-            $('.tip li').eq(0).find('a').attr('class','label label-info');
-        }else{
-            $(".<%=type%>").find('a').attr('class','label label-info');
+    window.onload = function () {
+        if ('<%= type %>' == 0) {
+            $('.tip li').eq(0).find('a').attr('class', 'label label-info');
+        } else {
+            $(".<%=type%>").find('a').attr('class', 'label label-info');
         }
-     }
-    	pagination({
-			selector: '#page',
-			totalPage: '<%= postsPageLength %>',
-			currentPage: 1,
-			prev: 'Previous Page',
-			next: 'Next Page',
-			first: true,
-			last: true,
-			showTotalPage: true,
-			count: 2//当前页前后显示的数量
-		},function(val){
-			// 当前页
-			$.ajax({
-				url: "articles/page?type=<%=type%>",
-				type: 'POST',
-				data:{
-					page: val
-				},
-				cache: false,
-				success: function (msg) {
-					console.log(msg)
-					if (msg != false) {
-						$('.article-list').html(' ')
-						$.each(msg,function(i,val){
-							console.log(val.name)
-							$('.article-list').append(
-                                "<div class='content'>" +
-                                    '<a href="/personal/' +  val.name + '" title="' +val.name + '" target="_blank" class="post-author">' +
-                                       
-                                            "<span class='author'>" + val.name + "</span>" + "&nbsp;&nbsp;" +
-                                            "<span class='times'>" + val.moment + '</span>' + "&nbsp;&nbsp;" +
-                                            '<span class="label label-info">' + val.type + '</span> ' +
-                                            "</a>" +
-                                                '<a href="/articledetail/' + val.id + '" target="_blank">' +
-                                            "<h4 class='title'>" + val.title + "</h4>" +
-                                        
-                                        "<div class='content-fo'>" +
-                                            "<span class='glyphicon glyphicon-heart'></span><span>" + val.likes + "</span>" +
-                                            "<span class='glyphicon glyphicon-comment'></span><span>" + val.comments + "</span>&nbsp;&nbsp;&nbsp;" +
-                                           ' <span class="pv-item">阅读量&nbsp;' + "<span class='pv'>" + val.pv + "</span>" + '</span>' +
-                                       "</div>" +
-                                       "</a>" +
-                                    "</div>" 
-							)
-						})
-					}else{
-						alert('分页不存在')
-					} 
-				}
-			})
-		
+    }
+    pagination({
+        selector: '#page',
+        totalPage: '<%= postsPageLength %>',
+        currentPage: 1,
+        prev: 'Previous Page',
+        next: 'Next Page',
+        first: true,
+        last: true,
+        showTotalPage: true,
+        count: 2 //当前页前后显示的数量
+    }, function (val) {
+        // 当前页
+        $.ajax({
+            url: "articles/page?type=<%=type%>",
+            type: 'POST',
+            data: {
+                page: val
+            },
+            cache: false,
+            success: function (msg) {
+                console.log(msg)
+                if (msg != false) {
+                    $('.article-list').html(' ')
+                    $.each(msg, function (i, val) {
+                        console.log(val.name)
+                        $('.article-list').append(
+
+                            "<div class='content row'>" +
+                            "<div class='col-md-6'>" +
+                            '<a href="/articledetail/' + val.id + '" target="_blank">' +
+                            '<img src= " ' + val.IMGURL +
+                            "loading='lazy' alt='Unnamed image' width='400' height='auto'>" +
+                            "</a>" +
+                            "</div>" +
+                            "<div class='col-md-6'>" +
+                            "<div class='content-info'>" +
+                            "<h3 class='title'>" + val.Title + "</h3>" +
+
+                            "<p class='Author'>" + val.Author + "</p>" +
+
+                            "<p class='times'>" + val.Date + '</p>' +
+
+                            '<p class="label label-info">' + val.Type + '</p> ' +
+
+
+
+                            '<span><i class="fa fa-heart" style="color:red"></i>&nbsp' +
+                            val.likes +
+                            '&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-comment" style="color: skyblue"></i>&nbsp;<span>' +
+                            val.comments +
+                            '&nbsp;&nbsp;&nbsp;&nbsp;<span class="pv-item">' +
+                            'views&nbsp;<span class="pv">' +
+                            val.pv + "</span></span>" +
+                            "</div>" +
+                            "</div>" +
+                            "</div>"
+                        )
+                    })
+                } else {
+                    alert('No more')
+                }
+            }
         })
-        
-        let articleTap = document.getElementsByClassName('article-tap')[0].getElementsByClassName('tip')[0];
-        articleTap.onclick = function(e){
-          //  let e = e||window.e;
-            let target = e.target||e.srcElement;
-            // let lis = articleTap.getElementsByTagName('li');
-            // console.log(lis)
-            if(target.nodeName=='A'){            
-                let type = target.parentNode.getAttribute('class');
-               if(type==='all'){
-                   window.location.href = '/home';
-               }else{
-                window.location.href ='/home?type=' + type;
-               target.setAttribute('class','label label-info');
-               }
+
+    })
+
+    let articleTap = document.getElementsByClassName('article-tap')[0].getElementsByClassName('tip')[0];
+    articleTap.onclick = function (e) {
+        //  let e = e||window.e;
+        let target = e.target || e.srcElement;
+        // let lis = articleTap.getElementsByTagName('li');
+        // console.log(lis)
+        if (target.nodeName == 'A') {
+            let type = target.parentNode.getAttribute('class');
+            if (type === 'all') {
+                window.location.href = '/home';
+            } else {
+                window.location.href = '/home?type=' + type;
+                target.setAttribute('class', 'label label-info');
             }
         }
+    }
 </script>
 <% include footer %>

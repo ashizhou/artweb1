@@ -28,7 +28,7 @@ function pagination(data,callback){
 		if (dataPage > 1) {
 			i_html += '<span id=\"prevPage\">'+ prevPage +'</span>'
 			if (data.first) {
-				i_html += '<a data-page="1" href=\"javascript:void(0);\">首页</a>'
+				i_html += '<a data-page="1" href=\"javascript:void(0);\">First</a>'
 			}
 		}
 		if (dataPage >= 5) {
@@ -46,7 +46,7 @@ function pagination(data,callback){
 				i_html += '<a data-page="'+ i +'" href=\"javascript:void(0);\">'+ i +'</a>'
 			}
 			if (data.last) {
-				i_html += '<a data-page="'+ data.totalPage +'" href=\"javascript:void(0);\">尾页</a>'
+				i_html += '<a data-page="'+ data.totalPage +'" href=\"javascript:void(0);\">Last</a>'
 			}
 			i_html += '<span id=\"nextPage\">'+ nextPage +'</span>'
 		}

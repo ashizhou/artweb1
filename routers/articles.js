@@ -18,8 +18,8 @@ router.post('/articles',async(ctx,next)=>{
     console.log(ctx.request.body);
  // console.log(ctx.request.body.content)
     let article = {
-        type : ctx.request.body.type,
-        title : ctx.request.body.title,
+        type : ctx.request.body.Type,
+        title : ctx.request.body.Title,
         content : ctx.request.body.content,
         author : ctx.session.user,
         time : moment().format('YYYY-MM-DD HH:mm'),
@@ -27,9 +27,9 @@ router.post('/articles',async(ctx,next)=>{
 
     }
    
-    if(!article.title.length||article.content.length<80){
-        ctx.body = 0;
-    }else{
+    // if(!article.title.length){
+    //     ctx.body = 0;
+    // }else{
         await userModel.insertPost([article.author,article.title,article.content,article.uid,article.time,article.type,ctx.session.avator])
                 .then(()=>{
                     ctx.body = 1;
@@ -38,7 +38,7 @@ router.post('/articles',async(ctx,next)=>{
                     console.log(err);
                     ctx.body = 0;
                 })
-    }
+    
 })
 //delete
 router.get('/delete',async(ctx,next)=>{
