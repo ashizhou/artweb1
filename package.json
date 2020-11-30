@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "chai": "^4.1.2",
+    "koa-cors": "0.0.16",
     "koa-formidable": "^1.1.0",
     "mocha": "^5.0.0",
     "sweetalert": "^2.1.2"

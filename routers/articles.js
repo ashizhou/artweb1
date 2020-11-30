@@ -242,19 +242,19 @@ router.post('/comment/:articleId', async(ctx,next)=>{
 })
 
 //评论分页 Pagnation
- router.post('/article/:articleId/commentPage', async(ctx,next)=>{
-     let articleId = parseInt(ctx.params.articleId),
-        page = parseInt(ctx.request.body.page);
-        console.log(articleId,page)
-        await userModel.findCommentByPage(page,articleId)
-            .then(result=>{
-                ctx.body = result;
-                console.log(result);
-            }).catch(err=>{
-                ctx.body = 'error';
-                console.log(err);
-            })
- })
+//  router.post('/article/:articleId/commentPage', async(ctx,next)=>{
+//      let articleId = parseInt(ctx.params.articleId),
+//         page = parseInt(ctx.request.body.page);
+//         console.log(articleId,page)
+//         await userModel.findCommentByPage(page,articleId)
+//             .then(result=>{
+//                 ctx.body = result;
+//                 console.log(result);
+//             }).catch(err=>{
+//                 ctx.body = 'error';
+//                 console.log(err);
+//             })
+//  })
 
  //删除评论
  router.get('/deleteComment/:articleId/:commentId', async(ctx,next)=>{
