@@ -38,9 +38,9 @@ app.use(views(path.join(__dirname, './views'),{
 
 //使用表单解析中间件
 app.use(bodyParser({
-    "formLimit":"5mb",
-    "jsonLimit":"5mb",
-    "textLimit":"5mb"
+    formLimit:"5mb",
+    jsonLimit:"5mb",
+    textLimit:"5mb"
 }));
 
 //routers
@@ -53,7 +53,7 @@ app.use(require('./routers/signup.js').routes())
 //profile
 app.use(require('./routers/personal').routes())
 //articles
-app.use(require('./routers/articles').routes())
+app.use(require('./routers/articles.js').routes())
 //logout
 app.use(require('./routers/signout.js').routes())
 //share

@@ -1,5 +1,10 @@
-var router = require('koa-router')();
-var userModel = require('../lib/mysql');
+const router = require('koa-router')()
+const userModel = require('../lib/mysql.js')
+
+router.get('/', async(ctx, next)=>{
+    
+    ctx.redirect('/home')
+})
 router.get('/home', async(ctx, next)=>{
     let types;
     if(!ctx.request.querystring){
@@ -16,12 +21,12 @@ router.get('/home', async(ctx, next)=>{
         if(ctx.session.user){
             await userModel.findDataByName(ctx.session.user)
             .then(res=>{
-                ctx.session.avator = res[0]['avator'];
+                ctx.session.avator = res[0]['avator']
             })
         }
 
     }else{
-         types = ctx.request.querystring.split('=')[1];
+        types = ctx.request.querystring.split('=')[1];
         console.log(types)
         let _sql = `select * from art where Title Like '%${types}%' Limit 0,15`;
         await userModel.query(_sql)
@@ -40,7 +45,7 @@ router.get('/home', async(ctx, next)=>{
     articles: post,
     type: types,
     postsLength: postsLength,
-    postsPageLength: Math.ceil(postsLength / 15),
+    postsPageLength: Math.ceil(postsLength / 10),
     
     })
 })
@@ -56,21 +61,20 @@ router.post('/articles/page', async(ctx, next) => {
     if(type=='all'){
         await userModel.findArtByPage(page)
         .then(result=>{
-            var res = JSON.parse(JSON.stringify(result));
-            ctx.body = res;   
+            console.log(result)
+            ctx.body = result
         }).catch(err=>{
-            console.log(err);
-           ctx.body = false;
+            console.log(err)
+           ctx.body = 'false'
     })  
     }else{
-        let _sql = `select * from art where Title Like '%${type}%' Limit ${(page-1)*15},15`;
+        let _sql = `select * from art where Title Like '%${type}%' Limit ${(page-1)*10},10`;
         await userModel.query(_sql)
             .then(result=>{
-                var res = JSON.parse(JSON.stringify(result));
-                ctx.body = res;
+                ctx.body = result
             }).catch(err=>{
-                console.log(err);
-                ctx.body = false;
+                console.log(err)
+                ctx.body = 'false'
             })
     }
   
@@ -95,9 +99,7 @@ router.get('/articledetail/:postId', async(ctx, next) => {
     console.log(postId,'id')
     await userModel.findArtById(postId) 
         .then(result => {
-            
             article = result;
-    
             article_pv = parseInt(result[0]['pv'])
             article_pv += 1
        

@@ -2,10 +2,7 @@
 <% if(!session.user){ %>
 <link rel="stylesheet" href="/css/login.css">
 <% } %>
-<link rel="stylesheet" href="/css/home.css">
-<script src="./js/ajax.js"></script>
 <% include nav %>
-
 <% if(!session.user){ %>
 <% include login %>
 <% } %>
@@ -22,24 +19,24 @@
     </ul>
 </div>
 
-<div class="center-block article-list">
-    <% articles.forEach(function(post){ %>
+<div class="center-block container article-list">
+    <% articles.forEach(function(res){ %>
     <div class="content row">
         <div class="col-md-6">
-            <a href="/articledetail/<%= post.id %>" target="_blank">
-                <img src="<%=post.IMGURL%>" loading="lazy" alt="Unnamed image" width="400" height="auto">
+            <a href="/articledetail/<%= res.id %>" target="_blank">
+                <img src="<%=res.IMGURL%>" loading="lazy" alt="Unnamed image" width="400" height="auto">
             </a>
         </div>
         <div class="col-md-6">
             <div class="content-info">
-                <h3 class="title"><%= post.Title %></h3>
-                <p class="author"><%= post.Author %></p>
-                <p class="times"><%= post.Date %></p>
-                <p class="label label-info"><%= post.Type %></p>
-                <span><i class="fa fa-heart" style="color:red"></i>&nbsp;<%= post.likes %>&nbsp;&nbsp;&nbsp;&nbsp;<i
+                <h3 class="title"><%= res.Title %></h3>
+                <p class="author"><%= res.Author %></p>
+                <p class="times"><%= res.Date %></p>
+                <p class="label label-info"><%= res.Type %></p>
+                <span><i class="fa fa-heart" style="color:red"></i>&nbsp;<%= res.likes %>&nbsp;&nbsp;&nbsp;&nbsp;<i
                         class="fa fa-comment"
-                        style="color: skyblue"></i>&nbsp;<%= post.comments %>&nbsp;&nbsp;&nbsp;&nbsp;<span
-                        class="pv-item">views&nbsp;<span class="pv"><%= post.pv %></span></span>
+                        style="color: skyblue"></i>&nbsp;<%= res.comments %>&nbsp;&nbsp;&nbsp;&nbsp;<span
+                        class="pv-item">views&nbsp;<span class="pv"><%= res.pv %></span></span>
 
             </div>
         </div>
@@ -53,26 +50,26 @@
     </div>
     <% } %>
 </div>
-<div style="width:50%; margin-left:25%; margin-top: 30px;text-align:center;" class="pagination" id="page"></div>
+<div><ul class="pagination justify-content-center" style="padding-top: 30px" id="page"><ul></div>
 <script src="/js/pagination.js"></script>
 <script>
     window.onload = function () {
         if ('<%= type %>' == 0) {
             $('.tip li').eq(0).find('a').attr('class', 'label label-info');
         } else {
-            $(".<%=type%>").find('a').attr('class', 'label label-info');
+            $(".<%=type%>").find('a').attr('class', 'label label-default');
         }
     }
     pagination({
         selector: '#page',
         totalPage: '<%= postsPageLength %>',
         currentPage: 1,
-        prev: 'Previous Page',
-        next: 'Next Page',
-        first: true,
-        last: true,
-        showTotalPage: true,
-        count: 2 //当前页前后显示的数量
+        prev: 'Previous',
+        next: 'Next',
+        first: false,
+        last: false,
+        showTotalPage: false,
+        count: 1 //当前页前后显示的数量
     }, function (val) {
         // 当前页
         $.ajax({
@@ -84,43 +81,35 @@
             cache: false,
             success: function (msg) {
                 console.log(msg)
-                if (msg != false) {
+                if (msg != 'false') {
                     $('.article-list').html(' ')
                     $.each(msg, function (i, val) {
-                        console.log(val.name)
                         $('.article-list').append(
-
-                            "<div class='content row'>" +
-                            "<div class='col-md-6'>" +
-                            '<a href="/articledetail/' + val.id + '" target="_blank">' +
-                            '<img src= " ' + val.IMGURL +
-                            "loading='lazy' alt='Unnamed image' width='400' height='auto'>" +
-                            "</a>" +
-                            "</div>" +
-                            "<div class='col-md-6'>" +
-                            "<div class='content-info'>" +
-                            "<h3 class='title'>" + val.Title + "</h3>" +
-
-                            "<p class='Author'>" + val.Author + "</p>" +
-
-                            "<p class='times'>" + val.Date + '</p>' +
-
-                            '<p class="label label-info">' + val.Type + '</p> ' +
-
-
-
-                            '<span><i class="fa fa-heart" style="color:red"></i>&nbsp' +
+                            '<div class=\"content row\">' +
+                            '<div class=\"col-md-6\">' +
+                            '<a href=\"/articledetail/' + val.id + '\" target=\"_blank\">' +
+                            '<img src= \"' + val.IMGURL +'\" loading=\"lazy\" alt=\"Unnamed image\" width=\"400\" height=\"auto\"/>' +
+                            '</a>' +
+                            '</div>' +
+                            '<div class=\"col-md-6\">' +
+                            '<div class=\"content-info\">' +
+                            '<h3 class=\"title\">' + val.Title + '</h3>' +
+                            '<p class=\"Author\">' + val.Author + '</p>' +
+                            '<p class=\"times\">' + val.Date + '</p>' +
+                            '<p class=\"label label-info\">' + val.Type + '</p> ' +
+                            '<span><i class=\"fa fa-heart\" style=\"color:red\"></i>&nbsp' +
                             val.likes +
-                            '&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-comment" style="color: skyblue"></i>&nbsp;<span>' +
+                            '&nbsp;&nbsp;&nbsp;&nbsp;<i class=\"fa fa-comment\" style=\"color: skyblue\"></i>&nbsp;<span>' +
                             val.comments +
-                            '&nbsp;&nbsp;&nbsp;&nbsp;<span class="pv-item">' +
-                            'views&nbsp;<span class="pv">' +
-                            val.pv + "</span></span>" +
-                            "</div>" +
-                            "</div>" +
-                            "</div>"
+                            '&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"pv-item\">' +
+                            'views&nbsp;<span class=\"pv\">' +
+                            val.pv + '</span></span>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>'
                         )
                     })
+                    $('html, body').animate({scrollTop:0}, 'slow');
                 } else {
                     alert('No more')
                 }
@@ -135,7 +124,7 @@
         let target = e.target || e.srcElement;
         // let lis = articleTap.getElementsByTagName('li');
         // console.log(lis)
-        if (target.nodeName == 'A') {
+        if (target.nodeName.toLowerCase() == 'a') {
             let type = target.parentNode.getAttribute('class');
             if (type === 'all') {
                 window.location.href = '/home';

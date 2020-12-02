@@ -1,17 +1,3 @@
-body,
-header,
-ul,
-li,
-p,
-div,
-html,
-span,
-h3,
-a {
-    margin: 0;
-    padding: 0;
-}
-
 body {
     background: #f4f5f5;
     font-size: 16px;
@@ -41,11 +27,12 @@ input {
     background: #fff;
 }
 
-/*navbar*/
+/*
+navbar
+*/
 .nav-link {
     text-transform: uppercase;
     font-weight: 500;
-    color: #fff
 }
 
 .navbar-brand .nav-link {
@@ -96,11 +83,9 @@ pre code {
     display: block;
 }
 
-/* ul ol 样式 */
-/* ul, ol {
-    margin: 10px 0 10px 20px;
-  } */
-
+/*
+ *footer
+ */
 
 .footer {
     position: relative;
@@ -117,3 +102,63 @@ pre code {
     padding-right: 15px;
     padding-left: 15px;
 }
+
+
+/*
+ *home nav tap
+ */
+.article-tap{
+    width:70%;
+    margin:auto;
+}
+.article-tap ul{
+    width:100%;
+    margin:auto;
+    height:20px;
+    line-height:20px;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: flex;
+    justify-content:space-around;
+}
+.article-tap li{
+    height:25px;
+    float: left;
+}
+.article-tap li a{
+    font-size:16px;
+}
+.article-list{
+    width:70%;
+    margin:auto;
+    margin-top:30px;
+    background: #fff;
+}
+.article-list .content{
+    padding: 20px 20px;
+    border-bottom: 1px solid #eee;
+}
+.article-list .content:hover{
+    background: #eee;
+}
+
+.article-list .content-info span{
+    position:absolute;
+    bottom:0;
+}
+
+.nothing p{
+    margin: auto;
+    text-align: center;
+    color: darkgrey;
+}
+ .nothing{
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+ .nothing span{
+    font-size: 45px;
+}
+
