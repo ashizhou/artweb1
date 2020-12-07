@@ -163,13 +163,13 @@ Project Link: [https://github.com/ashizhou/koa-artweb](https://github.com/ashizh
 
 <!-- ACKNOWLEDGEMENTS -->
 ## Acknowledgements
-* [koa-bodyparser](https://www.webpagefx.com/tools/emoji-cheat-sheet)
+* [koa-bodyparser](https://github.com/koajs/bodyparser)
 * [koa-mysql-session](https://shields.io)
-* [koa-router](https://choosealicense.com)
-* [koa-session-minimal](https://pages.github.com)
-* [koa-static](https://daneden.github.io/animate.css)
-* [koa-static-cache](https://connoratherton.com/loaders)
-* [koa-views](https://kenwheeler.github.io/slick)
+* [koa-router](https://github.com/koajs/router)
+* [koa-session-minimal](https://github.com/lzztt/koa-session-minimal)
+* [koa-static](https://github.com/koajs/static)
+* [koa-static-cache](https://github.com/koajs/static)
+* [koa-views](https://github.com/queckezz/koa-views)
 
 
 
