@@ -23,30 +23,12 @@ router.get('/personal/:author', async(ctx,next)=>{
             console.log(err);
         })
 
-    await userModel.findPostByUser(name)
+    await userModel.findByUser(name)
         .then(result=>{
             //console.log(result[0]);
             userArr.push(result.length);
         }).catch(err=>{
             console.log(err);
-        })
-    await userModel.findCollectionByUid(userInfo.id)
-        .then(result=>{
-            userArr.push(result.length);
-        }).catch(err=>{
-            console.log(err);
-        })
-
-        let _sql = `select * from follow where uid = ${userInfo.id}`;
-    await userModel.query(_sql)
-        .then(result=>{
-            userArr.push(result.length);
-        })
-    
-         _sql = `select * from follow where fwid = ${userInfo.id}`;
-    await userModel.query(_sql)
-        .then(result=>{
-            userArr.push(result.length);
         })
     await ctx.render('personal',{      
         session:ctx.session,
@@ -75,18 +57,11 @@ router.get('/personalInfo', async(ctx,next)=>{
             session:ctx.session,
            user:user
         })
-    //}
-    /*else{
-        await ctx.render('personalInformation',{
-            session:ctx.session,
-        })
-    }*/
    
 })
 
 //edit user info
-
-//edit user sql
+//sql
 router.post('/personalInfo',async(ctx,next)=>{
     console.log(ctx.request.body)
     let user = {
@@ -98,9 +73,9 @@ router.post('/personalInfo',async(ctx,next)=>{
         github : ctx.request.body.github
     }
     await userModel.updateUser([user.name,user.job,user.company,user.introduce,user.address,user.github,ctx.session.id])
-            .then(res=>{
+            .then(result=>{
                 console.log('edit success')
-                ctx.body = true;
+                ctx.body = 'true';
                 ctx.session.user = user.name;
                 ctx.session.job = user.job;
                 ctx.session.company = user.company;
@@ -123,11 +98,6 @@ router.get('/selfArticle/:userId',async(ctx,next)=>{
                     ctx.body = 0;
                 }
         
-         //   ctx.headers = 'text/html'
-           // return 0;
-        //    ctx.body = ctx.render('selfArticles', {
-        //     articles: articleLen,
-        // })
         })
     
 })
@@ -138,7 +108,7 @@ router.get('/collections/:userId', async(ctx,next)=>{
     await userModel.findCollectPostByUid(userId)
         .then(result=>{
            if(result.length>0){
-            ctx.body = userContent.updateArticle(result);
+            ctx.body = userContent.updateArt(result);
            }else{
                ctx.body = 0;
            }

@@ -1,10 +1,10 @@
-const koa = require("koa");   //node框架
+const koa = require("koa");   //node framework
 const path = require("path");  
-const bodyParser = require("koa-bodyparser"); //表单解析中间件
-const ejs = require("ejs");   //模板引擎
-const session = require("koa-session-minimal");   //处理数据库的中间件
-const MysqlStore = require("koa-mysql-session");  //处理数据库的中间件
-const router = require("koa-router");     //路由中间件
+const bodyParser = require("koa-bodyparser"); //koa middleware bodyparser
+const ejs = require("ejs");   //front framwork ejs
+const session = require("koa-session-minimal");   //middleware sql
+const MysqlStore = require("koa-mysql-session");  //middleware sql
+const router = require("koa-router");     //middleware router
 const config = require('./config/default.js');    //引入默认文件
 const views = require("koa-views");   //模板呈现中间件
 const koaStatic = require("koa-static");  //静态资源加载中间件
@@ -51,15 +51,14 @@ app.use(require('./routers/home.js').routes())
 //signup
 app.use(require('./routers/signup.js').routes())
 //profile
-app.use(require('./routers/personal').routes())
-//articles
-app.use(require('./routers/articles.js').routes())
+app.use(require('./routers/personal.js').routes())
+//art
+app.use(require('./routers/artdetail.js').routes())
 //logout
 app.use(require('./routers/signout.js').routes())
 //share
-app.use(require('./routers/share').routes())
-//note
-app.use(require('./routers/selfNote').routes())
+app.use(require('./routers/share.js').routes())
+
 //监听在8080端口
 app.listen(8080) 
 

@@ -1,0 +1,248 @@
+<% include header %>
+<link rel="stylesheet" href="/css/artdetail.css">
+<% if(!session.user){ %>
+<link rel="stylesheet" href="/css/login.css">
+<% } %>
+<% include nav %>
+<% if(!session.user){ %>
+<% include login %>
+<% } %>
+
+
+<div class="padmar art-list">
+    <div class="content row">
+        <div class="col-lg-8">
+            <a href="/artdetail/<%=art.id %>">
+                <img src="<%=art.IMGURL%>" loading="lazy" alt="Unnamed image" width="650" height="auto">
+            </a>
+        </div>
+        <div class="col-lg-4 content-info">
+            <h2 class="title"><%= art.Title %></h2>
+            <br>
+            <p class="author">Author:&nbsp;&nbsp;<%= art.Author %></p>
+            <p class="times">Date:&nbsp;&nbsp;<%= art.Date %></p>
+            <p class="type">Type:&nbsp;&nbsp; <%= art.Type %></p>
+            <p class="school">School:&nbsp;&nbsp; <%= art.School %></p>
+            <p class="technique">Technique:&nbsp;&nbsp; <%= art.Technique %></p>
+            <p class="location">Location:&nbsp;&nbsp; <%= art.Location %></p>
+
+            <span class="art-pv"><i class="fa fa-eye">&nbsp;<%= art.pv %></i></span>
+        </div>
+    </div>
+
+
+    <aside>
+        <ul class="comment-taps">
+            <% if(validator = 0){ %>
+            <li class="list"><a href="javascript:;" title="Like"><i class="fa fa-heart-o"></i></a></li>
+            <% }else{ %>
+            <li class="list"><a href="javascript:;" title="Like"><i class="fa fa-heart"></i></a></li>
+            <% }%>
+            <li style="text-align: center;color: gray;" class="likes"><%= art.likes %></li>
+            <li class="list"><a href="#commentform" title="Comment"><i class="fa fa-comment"></i></a></li>
+            <li style="text-align: center;color: gray;" class="iconComment"><%= art.commentS %></li>
+        </ul>
+    </aside>
+
+
+</div>
+</div>
+
+<div class="comment padmar">
+    <h2><%= art.comments %>&nbsp;&nbsp;COMMENTS</h2>
+    <% if(commentPageLength > 0) { %>
+    <div class="comment-list">
+        <% pageOne.forEach(function(res){ %>
+        <div class='comment-item'>
+            <h4><a href="/personal/<%=res['name'] %>"><img src="/images/<%=res['avator'] %>"
+                        alt="avator"><%= res['name'] %></a></h4>
+            <span> <%- res['moment'] %></span>
+            <div class='comment-content'>
+                <%- res['content'] %>
+                <% if(session.user ===  res['name']){ %>
+                <a href="javascript:deleteComment('/deleteComment/<%= art.id%>/<%=res['id'] %>', this);"
+                    class="deleteComment">Delete</a>
+                <% } %>
+            </div>
+        </div>
+        <% }) %>
+    </div>
+    <% } else{ %>
+    <p style="margin-left:10px;text-align:left;line-height:80px; font-size:20px;">Be the first to share what
+        you think</p>
+    <% } %>
+</div>
+    <div class="comment padmar" id="commentform">
+        <h2>LEAVE A REPLY</h2>
+    <% if(session.user){ %>
+    <div class="create-comment">
+        <form>
+            <textarea name="comment" id="comment" cols="30" rows="5"></textarea>
+            <input type="button" class="btn btn-success" value="Submit">
+        </form>
+    </div>
+    <% } else{ %>
+    <p style="margin-left:10px;text-align:left;line-height:80px;font-size:20px;">Log in or Sign up to leave a comment</p>
+    <% }%>
+    </div>
+
+<div>
+    <ul class="pagination justify-content-center" style="padding-top: 30px" id="page">
+        <ul>
+</div>
+
+<script src="/js/pagination.js"></script>
+<script src="/js/mask.js"></script>
+<script src="/js/ajax.js"></script>
+<script>
+    var userName = "<%- session.user %>"
+
+    pagination({
+        selector: '#page',
+        totalPage: '<%= commentPageLength %>',
+        currentPage: 1,
+        prev: '<',
+        next: '>',
+        first: false,
+        last: false,
+        showTotalPage: false,
+        count: 2
+    }, function (val) {
+        var _comment = ''
+        $.ajax({
+            url: "<%= art.id %>/commentPage",
+            type: 'POST',
+            data: {
+                page: val
+            },
+            cache: false,
+            success: function (msg) {
+                console.log(msg)
+                _comment = ''
+                if (msg != 'error') {
+                    $('.comment-list').html(' ')
+                    $.each(msg, function (i, val) {
+                        _comment +=
+                            " <div class='comment-item'>" +
+                            "<h4><a href='/personal/" + val.name + "'>" +
+                            "<img src='/images/" + val.avator + "' alt=" + val.name + "'>" +
+                            val.name + "</a></h4>" +
+                            "<span>" + val.moment + "</span>" +
+                            "<div class='comment-content'>";
+                        if (val.name == userName) {
+                            _comment += val.content +
+                                "<a href='javascript:deleteComment('/deleteComment/<%= art.id%>/'" +
+                                val.id + ",this)' class='deleteComment'>" + "Delete</a>" +
+                                "</div>" +
+                                "</div>"
+                        } else {
+                            _comment += val.content +
+                                "</div>" +
+                                "</div>"
+                        }
+
+                    })
+                    console.log(_comment)
+                    $('.comment-list').append(_comment)
+                } else {
+                    swal('Ooops', 'Log in or Sign up to leave a comment', 'error')
+                }
+            }
+        })
+
+    })
+
+    // Like
+    var postTaps = document.getElementsByClassName('comment-taps')[0];
+    var addHeart = postTaps.getElementsByTagName('li')[0],
+        gly = addHeart.getElementsByClassName('fa')[0],
+        likes = postTaps.getElementsByClassName('likes')[0];
+
+    '<% if(session.user){ %>'
+    //Like <=> DisLike
+    addHeart.onclick = function () {
+        if (gly.getAttribute('class').indexOf('fa-heart-o') != -1) {
+            ajax('get', '/addHeart/<%= art.id %>?flag=1', null);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status >= 200 && xhr.status < 300) {
+                    if (xhr.responseText) {
+                        gly.setAttribute('class', 'fa ' + 'fa-heart');
+                        likes.innerHTML = parseInt(likes.innerHTML) + 1;
+                    }
+                }
+            }
+        } else {
+            ajax('get', '/addHeart/<%= art.id %>?flag=2', null);
+            console.log('<%= likes %>')
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status >= 200 && xhr.status < 300) {
+                    if (xhr.responseText) {
+                        gly.setAttribute('class', 'fa ' + 'fa-heart-o');
+                        likes.innerHTML = parseInt(likes.innerHTML) - 1;
+                    }
+                }
+            }
+
+        }
+    }
+
+
+    //Comment
+    let comment = document.getElementsByClassName('create-comment')[0].getElementsByClassName('btn')[0];
+    let Allow = true;
+    comment.onclick = function () {
+        let comments = document.getElementById('comment');
+        if (comments.value == '') {
+            comments.value = 'Comment cannot be empty';
+            setTimeout(() => {
+                comments.value = '';
+            }, 1500)
+            return 0;
+        }
+        if (!Allow) return 0;
+        Allow = false;
+        ajax('post', '/comment/<%= art.id %>', "comments=" + comments.value, 'application/x-www-form-urlencoded');
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 & xhr.status >= 200 && xhr.status < 300) {
+                if (xhr.responseText) {
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1500)
+                    Allow = true;
+                }
+            }
+        }
+    }
+    //Delete Comment
+    function deleteComment(url, item) {
+        ajax('get', url, null);
+        console.log(item)
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 & xhr.status >= 200 && xhr.status < 300) {
+                if (xhr.responseText) {
+                    console.log('Delete Comment Success');
+                    swal({
+                        title: "Success",
+                        text: "Your comment was successfully deleted",
+                        type: "success",
+                        button: false
+                    });
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1000)
+
+                    //  console.log(item)
+                    //  console.log(item.parentNode)
+                    //  item.parentNode.parentNode.outerHTML = '';
+                }
+            }
+        }
+    }
+
+    '<% }else{ %>'
+    addHeart.onclick = function () {
+        swal('Ooops', 'Please Log in or Sign up', 'error')
+    }
+    '<% } %>'
+</script>
+<% include footer %>

@@ -2,15 +2,6 @@ var router = require('koa-router')();
 var userModel = require('../lib/mysql.js');
 var md5 = require('md5')
 
-    // login modal
-    /*
-router.get('/signup', async(ctx, next) => {
-        //await checkNotLogin(ctx)
-        await ctx.render('login', {
-            session: ctx.session,
-        })
-    })
-    */
     // post login
 router.post('/signup', async(ctx, next) => {
     console.log(ctx.request.body)

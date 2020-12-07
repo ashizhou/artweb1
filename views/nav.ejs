@@ -2,91 +2,74 @@
 
 <body>
     <header class="nav-head">
-        <div class="navbar navbar-expand-lg fixed-top navbar-light bg-light" >
-        <div class="nav container">
-            <a class="navbar-brand" href="#"><img alt="Art Gallery" src="/images/artlogo.png"
-                    style="max-width:80px; margin-top:-3px; margin-left: -10px;"></a>
+        <div class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
+            <div class="nav container">
+                <a class="navbar-brand" href="#"><img alt="Art Gallery" src="/images/artlogo.png"
+                        style="max-width:80px; margin-top:-3px; margin-left: -10px;"></a>
 
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03"
-                aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarColor03">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active mr-lg-4"><a class="nav-link" href="/home">Home</a></li>
-                    <li class="nav-item mr-lg-4"> <a class="nav-link" href="/share">Art</a></li>
-                    <li class="nav-item mr-lg-4"> <a class="nav-link" href="/share">Recommand</a></li>
-                    <li class="nav-item mr-lg-4"> <a class="nav-link" href="/share">Blog</a></li>
-                    <li class="nav-item mr-lg-4"><a class="nav-link" href="/about">About</a></li>
-                </ul>
-            
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03"
+                    aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarColor03">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active mr-lg-4"><a class="nav-link" href="/home">Home</a></li>
+                        <li class="nav-item mr-lg-4"> <a class="nav-link" href="/share">Art</a></li>
+                        <li class="nav-item mr-lg-4"> <a class="nav-link" href="/share">Blog</a></li>
+                        <li class="nav-item mr-lg-4"><a class="nav-link" href="/about">About</a></li>
+                    </ul>
 
-                        <form class="form-inline my-2 my-lg-0">
-                            <input class="form-control mr-sm-2" id="search" type="text" placeholder="Search">
-                            <button class="btn btn-secondary my-2 my-sm-0" id="search-btn" type="submit">Search</button>
-                        </form>
+
+                    <form class="form-inline my-2 my-lg-0">
+                        <input class="form-control mr-sm-2" id="search" type="text" placeholder="Search">
+                        <button class="btn btn-secondary my-2 my-sm-0" id="search-btn" type="submit">Search</button>
+                    </form>
                     <ul class="navbar-nav ml-auto">
-                    <% if(session.user){ %>
-                       
-                    <li class="nav-item dropdown">  
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img src="/images/<%= session.avator %>" alt="" class="rounded-lg img-title" height="45">
-                        </a>
+                        <% if(session.user){ %>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img src="/images/<%= session.avator %>" alt="" class="rounded-lg img-title"
+                                    height="45">
+                            </a>
+                            <div class="dropdown-menu menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item has-icon personal menulist"
+                                    href="/personal/<%= session.user %>">Profile</a>
+                                <a class="dropdown-item has-icon menulist" href="/articles">Post</a>
+                                <a class="dropdown-item has-icon out" href="/signout">Logout</a>
+                            </div>
+                        </li>
+                        <script>
+                            var imgTitle = document.getElementsByClassName('img-title')[0],
+                                menu = document.getElementsByClassName('menu')[0];
+                                imgTitle.onclick = function (event) {
+                                    showTap();
+                                    event.stopPropagation();
+                                }
 
-                        <div class="dropdown-menu menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item has-icon personal menulist" href="/personal/<%= session.user %>">Profile</a>
-                     
-                            <a class="dropdown-item has-icon menulist" href="/articles">Post</a>
-                            <a class="dropdown-item has-icon out" href="/signout">Logout</a>
-                        </div>
-                    </li>
-                    <script>
-                        var imgTitle = document.getElementsByClassName('img-title')[0],
-
-                            menu = document.getElementsByClassName('menu')[0];
-                        imgTitle.onclick = function (event) {
-                            showTap();
-                            event.stopPropagation();
-                        }
-
-                        document.body.addEventListener('click', function (event) {
-                            menu.style.display = 'none';
-                            // event.stopPropagation();
-                        }, true)
-
-                        function showTap() {
-                            if (menu.style.display == 'block') {
+                            document.body.addEventListener('click', function (event) {
                                 menu.style.display = 'none';
-                            } else {
-                                menu.style.display = 'block';
+                                // event.stopPropagation();
+                            }, true)
+
+                            function showTap() {
+                                if (menu.style.display == 'block') {
+                                    menu.style.display = 'none';
+                                } else {
+                                    menu.style.display = 'block';
+                                }
                             }
-                        }
-                        //Log Out
-                        var signOut = document.getElementsByClassName('out')[0];
-                        /*    signOut.onclick = function(){
-                                ajax('get','/signout',null);
-                                xhr.onreadystatechange = function () {
-                              if(xhr.readyState==4&&xhr.status>=200&&xhr.status<300){
-                                 let  text = xhr.responseText;    //服务器返回的对象
-                            if(text){
-                                window.location.reload = 'localhost:8080/home';
-                                 }
-                                 
-                             }
-                         }
+                            //Log Out
+                            var signOut = document.getElementsByClassName('out')[0];
+                        </script>
+                        <% }else{ %>
+                        <li class="nav-item login">
+                            <a class="loginup nav-link" href="javascript:;">SIGN UP | LOGIN</a>
+                        </li>
+                        <% } %>
 
-                            }*/
-                    </script>
-                    <% }else{ %>
-                    <li class="nav-item login">
-                        <a class="loginup nav-link" href="javascript:;"><span class="glyphicon glyphicon-user"></span> SIGN UP |
-                            LOGIN</a>
-                    </li>
-                    <% } %>
-
-                </ul>
+                    </ul>
+                </div>
             </div>
         </div>
-        </div>
     </header>
-  

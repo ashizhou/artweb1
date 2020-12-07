@@ -5,8 +5,7 @@ router.get('/signout', async(ctx, next) => {
     console.log('signed out');
     ctx.body = true;
     ctx.redirect('/home');
-    //return;
-    //ctx.redirect('/home');
+
 })
 
 module.exports = router

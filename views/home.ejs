@@ -8,7 +8,7 @@
 <% } %>
 
 
-<div class="article-tap padmar">
+<div class="art-tap padmar">
     <ul class="tip">
         <li class="all"><a href="javascript:;" class="label label-default">All</a></li>
         <li class="Still-Life"><a href="javascript:;" class="label label-default">Still-Lifes</a></li>
@@ -19,15 +19,15 @@
     </ul>
 </div>
 
-<div class="center-block container article-list">
-    <% articles.forEach(function(res){ %>
+<div class="center-block container art-list">
+    <% art.forEach(function(res){ %>
     <div class="content row">
-        <div class="col-md-6">
-            <a href="/articledetail/<%= res.id %>" target="_blank">
+        <div class="col-lg-6">
+            <a href="/artdetail/<%= res.id %>" >
                 <img src="<%=res.IMGURL%>" loading="lazy" alt="Unnamed image" width="400" height="auto">
             </a>
         </div>
-        <div class="col-md-6">
+        <div class="col-lg-6">
             <div class="content-info">
                 <h3 class="title"><%= res.Title %></h3>
                 <p class="author"><%= res.Author %></p>
@@ -69,11 +69,11 @@
         first: false,
         last: false,
         showTotalPage: false,
-        count: 1 //当前页前后显示的数量
+        count: 2 
     }, function (val) {
         // 当前页
         $.ajax({
-            url: "articles/page?type=<%=type%>",
+            url: "home/page?type=<%=type%>",
             type: 'POST',
             data: {
                 page: val
@@ -82,16 +82,16 @@
             success: function (msg) {
                 console.log(msg)
                 if (msg != 'false') {
-                    $('.article-list').html(' ')
+                    $('.art-list').html(' ')
                     $.each(msg, function (i, val) {
-                        $('.article-list').append(
+                        $('.art-list').append(
                             '<div class=\"content row\">' +
-                            '<div class=\"col-md-6\">' +
-                            '<a href=\"/articledetail/' + val.id + '\" target=\"_blank\">' +
+                            '<div class=\"col-lg-6\">' +
+                            '<a href=\"/artdetail/' + val.id + '\">' +
                             '<img src= \"' + val.IMGURL +'\" loading=\"lazy\" alt=\"Unnamed image\" width=\"400\" height=\"auto\"/>' +
                             '</a>' +
                             '</div>' +
-                            '<div class=\"col-md-6\">' +
+                            '<div class=\"col-lg-6\">' +
                             '<div class=\"content-info\">' +
                             '<h3 class=\"title\">' + val.Title + '</h3>' +
                             '<p class=\"Author\">' + val.Author + '</p>' +
@@ -111,15 +111,16 @@
                     })
                     $('html, body').animate({scrollTop:0}, 'slow');
                 } else {
-                    alert('No more')
+                    swal('Ooops','This is the Last Page','warning')
+
                 }
             }
         })
 
     })
 
-    let articleTap = document.getElementsByClassName('article-tap')[0].getElementsByClassName('tip')[0];
-    articleTap.onclick = function (e) {
+    let artTap = document.getElementsByClassName('art-tap')[0].getElementsByClassName('tip')[0];
+    artTap.onclick = function (e) {
         //  let e = e||window.e;
         let target = e.target || e.srcElement;
         // let lis = articleTap.getElementsByTagName('li');

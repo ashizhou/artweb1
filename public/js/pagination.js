@@ -8,8 +8,9 @@ function pagination(data, callback) {
         visiblePage = Math.ceil(data.visiblePage / 2),
         i_html = '',
         pageOneLoad = data.pageOneLoad ? false : true;
-    // 初始化
+    // Initialize
     pageAction(nowPage)
+
     function pageAction(dataPage) {
         nowPage = dataPage;
         i_html = '';
@@ -19,24 +20,24 @@ function pagination(data, callback) {
             prevPage = data.prev ? data.prev : '<',
             nextPage = data.next ? data.next : '>';
         if (dataPage > 1) {
-            i_html += '<li class=\"page-item\"><a class=\"page-link\" href=\"javascript:void(0);\" id=\"prevPage\">' + nextPage + '</a></li>' 
+            i_html += '<li class=\"page-item\"><a class=\"page-link\" href=\"javascript:void(0);\" id=\"prevPage\">' + prevPage + '</a></li>'
             if (data.first) {
                 i_html += '<li class="page-item"><a class=\"page-link\" data-page="1" href=\"javascript:void(0);\">First</a></li>'
             }
         }
         if (dataPage >= 5) {
             for (var i = 1; i <= 2; i++) {
-                i_html += '<li class=\"page-item\">'+'<a class=\"page-link\" data-page="' + i + '" href=\"javascript:void(0);\">' + i + '</a>'+'</li>'
+                i_html += '<li class=\"page-item\">' + '<a class=\"page-link\" data-page="' + i + '" href=\"javascript:void(0);\">' + i + '</a>' + '</li>'
             }
-            i_html += '<li class=\"page-item\"><a class=\"page-link\" href=\"javascript:void(0);\" >...</a></li>' 
+            i_html += '<li class=\"page-item\"><a class=\"page-link\" href=\"javascript:void(0);\" >...</a></li>'
         }
         for (var j = startPage; j <= endPage; j++) {
-            i_html +='<li class=\"page-item\">'+ '<a class=\"page-link\" data-page="' + j + '" href=\"javascript:void(0);\">' + j + '</a>'+'</li>'
+            i_html += '<li class=\"page-item\">' + '<a class=\"page-link\" data-page="' + j + '" href=\"javascript:void(0);\">' + j + '</a>' + '</li>'
         }
         if (endPage + 1 < data.totalPage) {
-            i_html += '<li class=\"page-item\"><a class=\"page-link\" href=\"javascript:void(0);\" >...</a></li>' 
+            i_html += '<li class=\"page-item\"><a class=\"page-link\" href=\"javascript:void(0);\" >...</a></li>'
             for (var i = (endPage > data.totalPage - 2 ? data.totalPage : data.totalPage - 1); i <= data.totalPage; i++) {
-                i_html += '<li class=\"page-item\">'+'<a  class=\"page-link\" data-page="' + i + '" href=\"javascript:void(0);\">' + i + '</a>'+'</li>'
+                i_html += '<li class=\"page-item\">' + '<a  class=\"page-link\" data-page="' + i + '" href=\"javascript:void(0);\">' + i + '</a>' + '</li>'
             }
             if (data.last) {
                 i_html += '<li class=\"page-item\"><a class=\"page-link\" data-page="' + data.totalPage + '" href=\"javascript:void(0);\">Last</a></li>'
@@ -58,7 +59,7 @@ function pagination(data, callback) {
                 pageA[i].parentNode.setAttribute('class', 'page-item active');
             }
         }
-        // 第一页不请求
+        //!PageOne Load
         if (!pageOneLoad) {
             callback && callback.call(null, dataPage)
         }
@@ -85,5 +86,5 @@ function pagination(data, callback) {
                 goPage = pageInput.value > data.totalPage ? 1 : /[1-9]+/g.test(pageInput.value) ? pageInput.value : 1;
             pageAction(parseInt(goPage))
         }
-	}
+    }
 }

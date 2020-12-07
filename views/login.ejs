@@ -1,5 +1,5 @@
 <div class="sign">
-    <a href="javascript:;" title="关闭" class="login-close close"></a>
+    <a href="javascript:;" title="close" class="login-close close"></a>
     <div class="sign-title">
         <h1>Register</h1>
         <p class="text-primary">If you have any questions, please feel free to contact me. </p>
@@ -44,8 +44,8 @@
         $close.click(function () {
             $sign.css("display","none");
         })
-
-        var $register = $('.register'), //login/loginup切换
+//login <=>loginup
+        var $register = $('.register'), 
             $span = $('.form-tips span'),
             $signup = $('.signup'),
             $signTitle = $('.sign-title h1'),
@@ -70,7 +70,7 @@
             }
         })
 
-        var $loginup = $('.loginup');   //点击登录/注册，阻止事件冒泡
+        var $loginup = $('.loginup');   
         $loginup.click(function () {
             $mask.fadeIn(100);
             $sign.slideDown(200);
@@ -91,7 +91,7 @@
 
         })
 
-        $(document).click(function (e) { //点击任意位置取消登录框
+        $(document).click(function (e) { 
             //e.stopPropagation();
             fadeOut();
         })
@@ -107,22 +107,21 @@
         signIn = document.getElementsByClassName('signin')[0];
 
     
-    
-    loginUp.onclick = function () { //注册
+    // signup
+    loginUp.onclick = function () { 
         var data1 = 'username=' + signUp["username"].value + '&' + 'pass='+ signUp["pass"].value + '&' + 'repeatpass=' + signUp["repeatpass"].value;
         var  reg = /^[\u4E00-\u9FA5]{2,5}$/;
         ajax('post','/signup',data1,"application/x-www-form-urlencoded");
         xhr.onreadystatechange = function () {
             if(xhr.readyState==4&&xhr.status>=200&&xhr.status<300){
              let  text = JSON.parse(xhr.responseText).code;  
-             console.log(text)  //服务器返回的对象
+             console.log(text)  
                if(text == 3){
                    fadeOut();
                    swal({title:"Login Successful", text:"Good Job!", type:"success", showConfirmButton: false});
                    setTimeout(()=>{
                     window.location.reload();
                 },1000)
-               //    document.getElementsByClassName('login')[0].outerHTML = "<li class='users'><a href='/'>"+signUp["username"].value+ "(=^ ^=)" +"</a></li>"
                }else{
                 fadeOut();
                 swal({title:"Username already exists", text:"Please enter a different username", type:"error", showConfirmButton: false});
@@ -133,19 +132,18 @@
 
     }
 
-    loginIn.onclick = function () { //登录
+    //login
+    loginIn.onclick = function () { //login
         var data2 = 'username=' + signIn["username"].value + '&' + 'pass=' + signIn["pass"].value;
         ajax('post','/signin',data2,"application/x-www-form-urlencoded");
         xhr.onreadystatechange = function () {
             if(xhr.readyState==4&&xhr.status>=200&&xhr.status<300){
-             let  text = JSON.parse(xhr.responseText).code;    //服务器返回的对象
+             let  text = JSON.parse(xhr.responseText).code;   
                 console.log(text);
                 
-                 //  document.getElementsByClassName('login')[0].outerHTML = "<li class='users'><a href='/'>"+signUp["username"].value+ "(=^ ^=)" +"</a></li>"
                if(text===1){
                 fadeOut();
-                // let imgTitle = document.getElementsByClassName('img-title')[0];
-                // imgTitle.setAttribute('src','/images/' + JSON.parse(xhr.responseText).avator)
+               
                 setTimeout(()=>{
                     window.location.reload();
                 },1000)

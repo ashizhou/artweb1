@@ -39,11 +39,6 @@
             <ul>
                 <li  class="acitves"><a href="javascript:getData('/selfArticle/<%= userInfo.id %>')">文章<span class="num"><%= userArr[0] %></span></a></li>
                 <li><a href="javascript:getData('/collections/<%= userInfo.id %>')">收藏<span class="num"><%= userArr[1] %></span></a></li>
-                <!-- <li><a href="">标签<span class="num">5</span></a></li>
-                <li><a href="">提出问题<span class="num">5</span></a></li>
-                <li><a href="">解答问题<span class="num">5</span></a></li> -->
-                <li><a href="javascript:getData('/follows/<%= userInfo.id %>')">关注<span class="num"><%= userArr[2] %></span></a></li>
-                <li><a href="javascript:getData('/followers/<%= userInfo.id %>')">粉丝<span class="num"><%= userArr[3] %></span></a></li>
             </ul>
         </div>
  
@@ -70,7 +65,7 @@
                         news.innerHTML = xhr.responseText;
                     }else{
                         news.innerHTML = '<div class="nothing">'+
-                                            '<p><span class="glyphicon glyphicon-list-alt"></span></p>' +
+                                            '<p><a class="fa fa-list"></a></p>' +
                                             '<p>Nothing Here</p>' +
                                          '</div>'
                     }
@@ -78,78 +73,7 @@
             }
         }
 
-        // //关注按钮
-        // let follow = document.getElementsByClassName('fw')[0];
-        // follow.addEventListener('click',function(e){
-        //     e.stopPropagation()
-        //     e.cancelBubble = true;
-        //     let target = e.target||e.srcElement;
-        //     if(target.nodeName=='BUTTON'){
-        //         let userId = parseInt(target.dataset);
-        //         console.log(userId)
-        //         if(target.innerHTML==='关注作者'){
-        //             ajax('get','/follow/' + userId + '?flag=1',null);
-        //             xhr.onreadystatechange = function () {
-        //          if(xhr.readyState==4&&xhr.status>=200&&xhr.status<300){
-        //             console.log(xhr.responseText)
-        //              if(xhr.responseText){
-        //                 target.innerHTML = '已关注';
-        //                  console.log('ok')
-        //              }
-        //          }
-        //      }
-        //         }else{
-        //             ajax('get','/follow/' + userId + '?flag=2',null);
-        //             xhr.onreadystatechange = function () {
-        //          if(xhr.readyState==4&&xhr.status>=200&&xhr.status<300){
-        //              console.log(xhr.responseText)
-        //              if(xhr.responseText){
-        //                 target.innerHTML = '关注作者'
-        //                  console.log('ok2')
-        //              }
-        //          }
-        //      }
-        //         }
-        //     }
-            
-        // },false);
-        function addfollow(e) { 
-            window.event? window.event.cancelBubble = true : e.stopPropagation();
-           // e.cancelBubble = true;
-            let target = e.target||e.srcElement;
-            if(target.nodeName=='BUTTON'){
-                let userId = parseInt(target.dataset.id);
-                if('<%= session.id %>'){
-                    if(target.innerHTML==='关注作者'){
-                    ajax('get','/follow/' + userId + '?flag=1',null);
-                    xhr.onreadystatechange = function () {
-                 if(xhr.readyState==4&&xhr.status>=200&&xhr.status<300){
-                    console.log(xhr.responseText)
-                     if(xhr.responseText){
-                        target.innerHTML = '已关注';
-                         console.log('ok')
-                     }
-                 }
-             }
-                }else{
-                    ajax('get','/follow/' + userId + '?flag=2',null);
-                    xhr.onreadystatechange = function () {
-                 if(xhr.readyState==4&&xhr.status>=200&&xhr.status<300){
-                     console.log(xhr.responseText)
-                     if(xhr.responseText){
-                        target.innerHTML = '关注作者'
-                         console.log('ok2')
-                     }
-                 }
-             }
-                } 
-                }else{
-                    alert('请先登录！')
-                }
-             
-            }
-            
-         }
+      
           
     </script>
 </body>

@@ -107,11 +107,11 @@ pre code {
 /*
  *home nav tap
  */
-.article-tap{
+.art-tap{
     width:70%;
     margin:auto;
 }
-.article-tap ul{
+.art-tap ul{
     width:100%;
     margin:auto;
     height:20px;
@@ -123,28 +123,28 @@ pre code {
     display: flex;
     justify-content:space-around;
 }
-.article-tap li{
+.art-tap li{
     height:25px;
     float: left;
 }
-.article-tap li a{
+.art-tap li a{
     font-size:16px;
 }
-.article-list{
+.art-list{
     width:70%;
     margin:auto;
     margin-top:30px;
     background: #fff;
 }
-.article-list .content{
+.art-list .content{
     padding: 20px 20px;
     border-bottom: 1px solid #eee;
 }
-.article-list .content:hover{
+.art-list .content:hover{
     background: #eee;
 }
 
-.article-list .content-info span{
+.art-list .content-info span{
     position:absolute;
     bottom:0;
 }

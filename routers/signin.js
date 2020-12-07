@@ -29,14 +29,7 @@ router.post('/signin', async(ctx, next) => {
                     ctx.session.user = res[0]['name']
                     ctx.session.id = res[0]['id']
                     ctx.session.avator = res[0]['avator']
-                /*ctx.session.job = res[0]['job']
-                ctx.session.company = res[0]['company']
-                ctx.session.address = res[0]['userhome']
-                ctx.session.introduce = res[0]['introdu']
-                ctx.session.github = res[0]['github']
-               // console.log('ctx.session.id', ctx.session.id)
-               // console.log('session', ctx.session)
-                */
+
 
             }else if(md5(pass + 'asd&$BH&*') != res[0]['pass']){
                 ctx.body = {

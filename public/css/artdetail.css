@@ -1,9 +1,9 @@
-.article-list{
+.art-list{
     width:70%;
     margin:auto;
     margin-top: 20px;
 }
-.article-list .author img{
+.art-list .author img{
     width:50px;
     height:50px;
 }
@@ -37,12 +37,12 @@
     height:25px;
     line-height:25px;
 }
-.article-title{
+.art-title{
     font-size: 30px;
     padding-bottom: 20px;
     border-bottom: 1px solid lightgrey;
 }
-.article-pv{
+.art-pv{
     margin-top: 18px;
     margin-right: 20px;
     float: right;
@@ -151,7 +151,7 @@
 .comment-taps li.list a{
     color: #30a07e;
 }
-.comment-taps li.list a[title="点赞"]{
+.comment-taps li.list a[title="Like"]{
     color: lightcoral;
 }
 .deleteComment :hover{
