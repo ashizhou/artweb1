@@ -10,32 +10,37 @@ router.get('/home', async (ctx, next) => {
         types = 'all';
         await userModel.findArtByPage(1)
             .then(result => {
-                //console.log(result)
+                console.log("all page1")
                 post = result
             })
         await userModel.findAllArt()
             .then(result => {
                 postsLength = result.length
+                console.log("all length:"+postsLength)
             })
         if (ctx.session.user) {
             await userModel.findDataByName(ctx.session.user)
-                .then(res => {
+                .then(res => 
+                    {
+                    console.log("user date")  
                     ctx.session.avator = res[0]['avator']
                 })
         }
 
     } else {
         types = ctx.request.querystring.split('=')[1];
-        console.log(types)
+        console.log("selected type:"+types)
         let _sql = `select * from art where Title Like '%${types}%' Limit 0,10`;
         await userModel.query(_sql)
             .then(result => {
+                console.log("type page1")
                 post = result;
             })
         _sql = `select * from art where Title Like '%${types}%'`;
         await userModel.query(_sql)
             .then(result => {
                 postsLength = result.length;
+                console.log("type length:"+postsLength)
             })
     }
 
@@ -57,7 +62,7 @@ router.post('/home/page', async (ctx, next) => {
     if (type == 'all') {
         await userModel.findArtByPage(page)
             .then(result => {
-                console.log(result)
+                console.log("pagination success")
                 ctx.body = result
             }).catch(err => {
                 console.log(err)
@@ -68,6 +73,7 @@ router.post('/home/page', async (ctx, next) => {
         let _sql = `select * from art where Title Like '%${type}%' Limit ${(page-1)*10},10`;
         await userModel.query(_sql)
             .then(result => {
+                console.log("pagination success")
                 ctx.body = result
             }).catch(err => {
                 console.log(err)

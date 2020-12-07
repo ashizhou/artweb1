@@ -26,11 +26,13 @@ router.get('/artdetail/:postId', async(ctx, next) => {
     console.log(postId,'id')
     await userModel.findArtById(postId) 
         .then(result => {
+            console.log("art sql findbyid success")
             res = result;
         })
     await userModel.updateArtPv(postId)
     await userModel.findCommentByPage(1, postId)
         .then(result => {
+            console.log("artcomment sql find comment success")
             pageOne = result
         })
     await userModel.findCommentCountById(postId)
@@ -40,13 +42,13 @@ router.get('/artdetail/:postId', async(ctx, next) => {
     await userModel.findLikeByArtId(postId)
         .then(result =>{
             likes = result
-            console.log(result)
+            console.log("artlike:"+likes)
         })
     if (ctx.session.user){
         await userModel.ValidateLikeByArtId([ctx.session.user,postId])
         .then(result =>{
             validator=result
-            console.log(validator)
+            console.log("fa-heart validator:"+validator)
         }).catch((err) => {
             console.log(err)
         })
@@ -74,29 +76,30 @@ router.get('/addHeart/:artId', async (ctx, next) => {
     await userModel.findArtById(ctx.params.artId)
         .then((result) => {
             likes = parseInt(result[0]['likes']);
+            console.log('art sql art likes:'+likes);
         })
     if (flag == 1) {
         likes += 1;
         await userModel.insertLikes([ctx.session.user, artId])
             .then(() => {
-                console.log('click like');
+                console.log('artlikes sql art likes+1');
             }).catch((err) => {
                 console.log(err);
             })
 
         await userModel.updateArtLike([likes, artId])
             .then(() => {
-                ctx.body = true;
-                console.log('Success Like')
+                ctx.body = 'true';
+                console.log('art sql set art likes+1')
             }).catch((err) => {
                 console.log(err)
-                ctx.body = false;
+                ctx.body = 'false';
             })
 
     } else if (flag == 2) { //Dislike
         await userModel.poseLikes([ctx.session.user, artId])
             .then(() => {
-                console.log('Click DisLike');
+                console.log('artlikes sql art likes-1');
             }).catch((err) => {
                 console.log(err);
             })
@@ -104,8 +107,8 @@ router.get('/addHeart/:artId', async (ctx, next) => {
         likes += -1;
         await userModel.updateArtLike([likes, artId])
             .then(() => {
-                ctx.body = true;
-                console.log('DisLikes Success')
+                ctx.body = 'true';
+                console.log('art sql set art likes-1')
             }).catch((err) => {
                 console.log(err)
                 ctx.body = 'false';
