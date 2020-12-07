@@ -45,7 +45,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-![](https://github.com/ashizhou/koa-artweb/public/images/artdemo.gif)
+![](https://github.com/ashizhou/koa-artweb/blob/master/public/images/artdemo.gif)
 
 The basic idea is that people can create a profile, and then browse the art, commenting, giving up or down votes, or whatever you decide. The idea is that it is a space for be people to explore and discuss art.
 
