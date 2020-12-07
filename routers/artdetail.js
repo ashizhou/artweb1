@@ -39,14 +39,16 @@ router.get('/artdetail/:postId', async(ctx, next) => {
         })
     await userModel.findLikeByArtId(postId)
         .then(result =>{
+            likes = result
             console.log(result)
-            likes = result.length
         })
     if (ctx.session.user){
         await userModel.ValidateLikeByArtId([ctx.session.user,postId])
         .then(result =>{
-            console.log(result)
             validator=result
+            console.log(validator)
+        }).catch((err) => {
+            console.log(err)
         })
     }
     
@@ -94,12 +96,12 @@ router.get('/addHeart/:artId', async (ctx, next) => {
     } else if (flag == 2) { //Dislike
         await userModel.poseLikes([ctx.session.user, artId])
             .then(() => {
-                console.log(' Click DisLike');
+                console.log('Click DisLike');
             }).catch((err) => {
                 console.log(err);
             })
 
-        likes -= 1;
+        likes += -1;
         await userModel.updateArtLike([likes, artId])
             .then(() => {
                 ctx.body = true;
@@ -113,36 +115,34 @@ router.get('/addHeart/:artId', async (ctx, next) => {
 
 //Comment
 router.post('/comment/:artId', async (ctx, next) => {
-    console.log('test')
     console.log(ctx.request.body.comments)
     let artId = ctx.params.artId,
         content = ctx.request.body.comments,
         name = ctx.session.user,
-        avator = ctx.session.avator;
-    //  moment = moment().format('YYYY-MM-DD HH:mm');
-    let comments = 0;
+        avator = ctx.session.avator,
+        comment;
     await userModel.insertComment([name, content, moment().format('YYYY-MM-DD HH:mm'), artId, avator])
         .then(result => {
-            console.log(result[0]);
+            console.log("comment success");
         }).catch(err => {
             console.log(err);
         });
-    await userModel.findPostById(artId)
+    await userModel.findCommentById(artId)
         .then(result => {
             // console.log(result[0]);
-            console.log(result[0]['comments'])
-            comments = parseInt(result[0]['comments']) + 1;
+            console.log(result)
+            comment = parseInt(result[0]['comments']) + 1;
 
         }).catch(err => {
             console.log(err);
         });
-    await userModel.updateArtComment([comments, artId])
+    await userModel.addArtComment(artId)
         .then(result => {
             console.log(result);
-            ctx.body = true;
+            ctx.body = 'art sql comment+1';
         }).catch(err => {
             console.log(err);
-            ctx.body = false;
+            ctx.body = 'art sql comment failed';
         });
 })
 
@@ -166,29 +166,21 @@ router.post('/artdetail/:artId/commentPage', async (ctx, next) => {
 router.get('/deleteComment/:artId/:commentId', async (ctx, next) => {
     let commentId = ctx.params.commentId;
     let artId = ctx.params.artId,
-        comment = 0;
+        comment;
     await userModel.deleteComment(commentId)
         .then(result => {
-            console.log(result);
-
-        }).catch(err => {
-            console.log(err);
-            ctx.body = false;
-        })
-    await userModel.findArtById(artId)
-        .then(result => {
-            console.log(result[0]['comments']);
-            comment = parseInt(result[0]['comments']) - 1;
-        }).catch(err => {
-            console.log(err);
-        })
-    await userModel.updateArtComment([comment, artId])
-        .then(result => {
-            console.log(result);
-            ctx.body = 'true';
+            console.log('artcomment sql delete comment success');
         }).catch(err => {
             console.log(err);
             ctx.body = 'false';
+        })
+    await userModel.poseArtComment(artId)
+        .then(result => {
+            console.log('art sql delete comment success');
+            ctx.body = 'delete comment';
+        }).catch(err => {
+            console.log(err);
+            ctx.body = 'delete comment error';
         })
 })
 module.exports = router

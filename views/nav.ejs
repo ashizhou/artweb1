@@ -14,15 +14,17 @@
                 <div class="collapse navbar-collapse" id="navbarColor03">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item active mr-lg-4"><a class="nav-link" href="/home">Home</a></li>
-                        <li class="nav-item mr-lg-4"> <a class="nav-link" href="/share">Art</a></li>
+                        <li class="nav-item mr-lg-4"> <a class="nav-link" href="/recommend">Recommend</a></li>
                         <li class="nav-item mr-lg-4"> <a class="nav-link" href="/share">Blog</a></li>
                         <li class="nav-item mr-lg-4"><a class="nav-link" href="/about">About</a></li>
                     </ul>
 
 
                     <form class="form-inline my-2 my-lg-0">
-                        <input class="form-control mr-sm-2" id="search" type="text" placeholder="Search">
+                          <div class="form-group mr-sm-2">
+                        <input class="form-control" id="search" type="text" placeholder="Search">
                         <button class="btn btn-secondary my-2 my-sm-0" id="search-btn" type="submit">Search</button>
+                          </div>
                     </form>
                     <ul class="navbar-nav ml-auto">
                         <% if(session.user){ %>

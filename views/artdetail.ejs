@@ -33,14 +33,14 @@
 
     <aside>
         <ul class="comment-taps">
-            <% if(validator = 0){ %>
+            <% if(validator.length==0){ %>
             <li class="list"><a href="javascript:;" title="Like"><i class="fa fa-heart-o"></i></a></li>
             <% }else{ %>
             <li class="list"><a href="javascript:;" title="Like"><i class="fa fa-heart"></i></a></li>
             <% }%>
             <li style="text-align: center;color: gray;" class="likes"><%= art.likes %></li>
             <li class="list"><a href="#commentform" title="Comment"><i class="fa fa-comment"></i></a></li>
-            <li style="text-align: center;color: gray;" class="iconComment"><%= art.commentS %></li>
+            <li style="text-align: center;color: gray;" class="iconComment"><%= art.comments %></li>
         </ul>
     </aside>
 
@@ -49,7 +49,7 @@
 </div>
 
 <div class="comment padmar">
-    <h2><%= art.comments %>&nbsp;&nbsp;COMMENTS</h2>
+    <h2><%= art.comments%>&nbsp;&nbsp;COMMENTS</h2>
     <% if(commentPageLength > 0) { %>
     <div class="comment-list">
         <% pageOne.forEach(function(res){ %>
@@ -77,8 +77,10 @@
     <% if(session.user){ %>
     <div class="create-comment">
         <form>
-            <textarea name="comment" id="comment" cols="30" rows="5"></textarea>
+            <div class="form-group">
+            <textarea class="form-control" name="comment" id="comment" rows="5"></textarea>
             <input type="button" class="btn btn-success" value="Submit">
+            </div>
         </form>
     </div>
     <% } else{ %>
@@ -101,8 +103,8 @@
         selector: '#page',
         totalPage: '<%= commentPageLength %>',
         currentPage: 1,
-        prev: '<',
-        next: '>',
+        prev: false,
+        next: false,
         first: false,
         last: false,
         showTotalPage: false,

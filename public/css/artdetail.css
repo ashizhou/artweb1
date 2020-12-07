@@ -70,15 +70,7 @@
     padding-bottom: 10px;
     background: #fff;
 }
-.create-comment textarea{
-    width:90%;
-    display: block;
-    margin:auto;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
-    resize: none;
-}
+
 .create-comment .btn{
     float: right;
     margin:10px 5% 10px 0;
