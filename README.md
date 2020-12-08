@@ -11,7 +11,7 @@
   <h3 align="center">Art Social Network</h3>
 
   <p align="center">
-     🚀Simple Art Social Networ in NodeJs, KoaJs, Mysql stack 
+     🚀Simple Art Social Network in NodeJs, KoaJs, Mysql stack 
     <br />
     <a href="https://github.com/ashizhou/koa-artweb"><strong>Explore the docs »</strong></a>
     <br />
