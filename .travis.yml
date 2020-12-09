@@ -2,3 +2,5 @@ language: node_js
 node_js:
   - 14
 os: windows
+before_script: node run build
+script: node test
