@@ -30,10 +30,7 @@
 ## Table of Contents
 
 * [About the Project](#about-the-project)
-  * [Built With](#built-with)
 * [Getting Started](#getting-started)
-  * [Prerequisites](#prerequisites)
-  * [Installation](#installation)
 * [Usage](#usage)
 * [Roadmap](#roadmap)
 * [Contributing](#contributing)
@@ -44,10 +41,12 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-
+  
+  
 ![](https://github.com/ashizhou/koa-artweb/blob/master/public/images/artdemo.gif)
-
-The basic idea is that people can create a profile, and then browse the art, commenting, giving up or down votes, or whatever you decide. The idea is that it is a space for be people to explore and discuss art.
+  
+  
+The basic idea is that people can **create a profile**, and then **browse the art**, **commenting**, giving up or down **votes**, and **bookmark**. The idea is that it is a space for be people to explore and discuss art.
 
 Here's why koa:
 * Koa's middleware composed and executed in a stack-like manner
@@ -56,16 +55,13 @@ Here's why koa:
 
 
 ### Built With
-* [Bootswatch](https://bootswatch.com/)
-* [EJS](https://ejs.co/)
-* [KoaJS](https://koajs.com/)
-* [MySql](https://www.mysql.com/)
+1. Bootswatch
+2. EJS
+3. KoaJS
+4. MySql
 
 <!-- GETTING STARTED -->
 ## Getting Started
-
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
 
@@ -100,25 +96,9 @@ $ pm2 start index.js
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-> database: mysql  tables: users comment like  (lib/mysql.js => creat tables)
+> database: mysql tables: users comment like  (lib/mysql.js => creat tables)
 
-|   users  	| comment 	| likes 	|    art    	|
-|:--------:	|:-------:	|:-----:	|:---------:	|
-|    id    	|    id   	|   id  	|     id    	|
-|   name   	|   name  	|  name 	|   Author  	|
-|   pass   	| content 	| artid 	|  BornDiec 	|
-|  avator  	|  moment 	|       	|   Title   	|
-|    job   	|  artid  	|       	|    Date   	|
-|  company 	|  avator 	|       	| Technique 	|
-|  introdu 	|         	|       	|  Location 	|
-| userhome 	|         	|       	|    Url    	|
-|  github  	|         	|       	|    Form   	|
-|          	|         	|       	|   School  	|
-|          	|         	|       	| Timeframe 	|
-|          	|         	|       	|     pv    	|
-|          	|         	|       	|  comments 	|
-|          	|         	|       	|   likes   	|
-
+![](https://github.com/ashizhou/koa-artweb/blob/master/public/images/sql%20info.png)
 
 <!-- ROADMAP -->
 ## Roadmap
@@ -138,7 +118,9 @@ $ pm2 start index.js
 
 - [ ] Recommend
 
+- [ ] Post
 
+- [ ] BookMark
 
 <!-- CONTRIBUTING -->
 ## Contributing
@@ -157,12 +139,13 @@ Contributions are what make the open source community such an amazing place to b
 
 Ashi Zhou - zhou1@kenyon.edu
 
-Project Link: [https://github.com/ashizhou/koa-artweb](https://github.com/ashizhou/koa-artweb]
+Project Link - [repo](https://github.com/ashizhou/koa-artweb)
 
 
 
 <!-- ACKNOWLEDGEMENTS -->
 ## Acknowledgements
+  
 * [koa-bodyparser](https://github.com/koajs/bodyparser)
 * [koa-mysql-session](https://shields.io)
 * [koa-router](https://github.com/koajs/router)
