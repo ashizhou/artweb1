@@ -2,4 +2,4 @@
 .vscode
 .vscode/
 /dist
-
+/node_modules/node-sass/vendor
