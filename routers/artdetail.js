@@ -41,8 +41,8 @@ router.get('/artdetail/:postId', async(ctx, next) => {
         })
     await userModel.findLikeByArtId(postId)
         .then(result =>{
-            likes = result
-            console.log("artlike:"+likes)
+            likes = result[0]['likes']
+            console.log(likes)
         })
     if (ctx.session.user){
         await userModel.ValidateLikeByArtId([ctx.session.user,postId])
@@ -52,6 +52,8 @@ router.get('/artdetail/:postId', async(ctx, next) => {
         }).catch((err) => {
             console.log(err)
         })
+    }else{
+        validator=[]
     }
     
     await ctx.render('artdetail', {

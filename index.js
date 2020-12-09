@@ -11,7 +11,7 @@ const koaStatic = require("koa-static");  //静态资源加载中间件
 const staticCache = require('koa-static-cache')
 const app = new koa();
 
-//session存储配置
+//session storage
 const sessionMysqlConfig = {
     user: config.database.USERNAME,
     password: config.database.PASSWORD,
@@ -44,18 +44,14 @@ app.use(bodyParser({
 }));
 
 //routers
-//login
-app.use(require('./routers/signin.js').routes())
+//login+logout+signup
+app.use(require('./routers/login.js').routes())
 //home
 app.use(require('./routers/home.js').routes())
-//signup
-app.use(require('./routers/signup.js').routes())
 //profile
 app.use(require('./routers/personal.js').routes())
 //art
 app.use(require('./routers/artdetail.js').routes())
-//logout
-app.use(require('./routers/signout.js').routes())
 //share
 app.use(require('./routers/share.js').routes())
 

@@ -89,4 +89,10 @@ router.get('/about', async (ctx, next) => {
     })
 })
 
+router.get('/editor', async (ctx, next) => {
+    await ctx.render('editor', {
+        session: ctx.session
+    })
+})
+
 module.exports = router

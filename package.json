@@ -7,7 +7,8 @@
     "lib": "lib"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prettier": "node_modules/prettier/bin-prettier.js --write \"./**/*.{js,jsx,json,md,ts,tsx}\""
   },
   "author": "",
   "license": "ISC",
@@ -29,7 +30,9 @@
     "chai": "^4.1.2",
     "koa-cors": "0.0.16",
     "koa-formidable": "^1.1.0",
-    "mocha": "^5.0.0",
-    "sweetalert": "^2.1.2"
+    "mocha": "^8.2.1",
+    "prettier": "^2.2.1",
+    "sweetalert": "^2.1.2",
+    "xss": "^1.0.8"
   }
 }

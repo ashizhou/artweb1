@@ -1,0 +1,106 @@
+<% include header %>
+<link rel="stylesheet" href="/css/editor.css">
+<script src="https://unpkg.com/wangeditor/dist/wangEditor.min.js"></script>
+<% include nav %>
+<div class="editor1"></div>
+<div id="edit">
+    <span class="edit-tips">Success</span>
+    <span class="num"></span>
+    <select name="derection" id="derect">
+        <option value="0">type</option>
+        <option value="culture">Art And Culture</option>
+        <option value="Event">Events&Review</option>
+        <option value="How">How to</option>
+        <option value="Opportunity">Opportunity</option>
+        <option value="other">Other</option>
+    </select>
+    <a href="javascript:;" class="editorUp"><span class="fa fa-share"></span></a>
+</div>
+<div id="article">
+    <input type="text" placeholder="Title" name="title" class="article-title"/>
+
+    <div class="editor2"></div>
+
+</div>
+<!-- <div class="login-form-mask"></div> -->
+<!-- <div class="tip-box">Success</div> -->
+<script src="/js/mask.js"></script>
+<script>
+//launch editor
+var E = window.wangEditor
+var editor = new E('.editor1','.editor2')
+// 使用 base64 保存图片
+editor.customConfig.uploadImgShowBase64 = true  
+editor.customConfig.uploadImgMaxSize = 3 * 1024 * 1024;
+// limit maximum image length
+editor.customConfig.uploadImgMaxLength = 5;
+editor.customConfig.pasteFilterStyle = true;
+editor.create();
+editor.txt.html('<span>Enter.......</span>');
+
+//Word Count
+var num = document.getElementsByClassName('num')[0],
+    editType = document.getElementById('derect'),
+    editContent = document.getElementsByClassName('editor2')[0];
+    editContent.onkeyup = function () {
+        num.innerHTML = (editContent.innerHTML.length - 120) + 'Words';
+    }
+//ajax upleading
+var editorUp = document.getElementsByClassName('editorUp')[0],
+    editTitle = document.getElementsByClassName('article-title')[0],
+    editTips = document.getElementsByClassName('edit-tips')[0];
+
+    editorUp.onclick = function () {
+      //  console.log(editContent.innerHTML)
+    
+        if(editTitle.value&&editContent.innerHTML.length>132){
+            console.log(editor.txt.text())
+            if(editType.value==0){
+          fadeout('Catagories cannot be empty ');
+            return false;
+            }
+        let data = { "title": editTitle.value,"content":editor.txt.html(),"type":editType.value };
+       let data2 =  JSON.stringify(data);
+    
+        console.log(data2);
+        ajax('post','/articles',data2,'application/json');
+        xhr.onreadystatechange = function () {
+            if(xhr.readyState==4&&xhr.status>=200&&xhr.status<300){
+                let  text = xhr.responseText;   
+                console.log(text)
+                if(text==1){
+                    swal({
+                        title: "Post Successful",
+                        text: "Good Job!",
+                        type: "success",
+                        showConfirmButton: false
+                    });
+                   setTimeout(()=>{
+                    window.location.href = '/home';
+                   },1500);
+                }else{
+                    swal('Ooops', 'Internal Server Error', 'error')
+                    // editTips.innerHTML = '发表失败';
+                    // editTips.style.animation = 'fadeout 2s';
+                }
+            }
+        }
+        }else{
+            swal('Ooops', 'Title and Content cannot be Empty', 'error')
+            // editTips.innerHTML = '文章内容和标题不能为空';
+            // editTips.style.animation = 'fadeout 2s';
+        }
+     
+    }
+
+    
+    function fadeout(text){
+        editTips.innerHTML = text;
+        editTips.style.opacity = 1;
+        setTimeout(()=>{
+            editTips.style.opacity = 0;
+        },1000)
+    }
+
+</script>
+<% include footer %>

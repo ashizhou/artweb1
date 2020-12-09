@@ -6,30 +6,30 @@
     </div>
     <form class="form signup" role="form">
 
-            <div class="form-group">
-                <input type="text" name="username" placeholder="at least 2 characters" class="form-control">
-            </div>
+        <div class="form-group">
+            <input type="text" name="username" placeholder="at least 2 characters" class="form-control">
+        </div>
         <div class="form-group">
             <input type="password" name="pass" class="pass form-control" placeholder="password">
         </div>
         <div class="form-group">
             <input type="password" name="repeatpass" id="repeat" placeholder="repeat password" class="form-control">
         </div>
-            <div class="form-group">
+        <div class="form-group">
             <input type="button" value="Register" class="btn btn-primary login-up">
-            </div>
+        </div>
 
     </form>
     <form class="form signin" role="form">
-       <div class="form-group">
-           <input type="text" name="username" placeholder="username" class="form-control">
-       </div>
-       <div class="form-group">
-           <input type="password" name="pass" class="pass form-control" placeholder="password">
-       </div>
-      <div class="form-group">
-          <input type="button" value="Log In" class="btn btn-primary login-in">
-      </div>
+        <div class="form-group">
+            <input type="text" name="username" placeholder="username" class="form-control">
+        </div>
+        <div class="form-group">
+            <input type="password" name="pass" class="pass form-control" placeholder="password">
+        </div>
+        <div class="form-group">
+            <input type="button" value="Log In" class="btn btn-primary login-in">
+        </div>
     </form>
     <div class="form-tips">
         <span>Already have an account?</span>
@@ -38,123 +38,145 @@
 </div>
 <div class="login-form-mask"></div>
 <script>
-  //  $(document).ready(function () {
-        var $close = $('.login-close');
-        var $sign = $('.sign');
-        $close.click(function () {
-            $sign.css("display","none");
-        })
-//login <=>loginup
-        var $register = $('.register'), 
-            $span = $('.form-tips span'),
-            $signup = $('.signup'),
-            $signTitle = $('.sign-title h1'),
-            $signin = $('.signin');
+    //  $(document).ready(function () {
+    var $close = $('.login-close');
+    var $sign = $('.sign');
+    $close.click(function () {
+        $sign.css("display", "none");
+    })
+    //login <=>loginup
+    var $register = $('.register'),
+        $span = $('.form-tips span'),
+        $signup = $('.signup'),
+        $signTitle = $('.sign-title h1'),
+        $signin = $('.signin');
 
-        $register.click(function () {
-            if($span.html() == "Already have an account?"){
+    $register.click(function () {
+        if ($span.html() == "Already have an account?") {
 
-                $signin.css('display','block');
-                $signup.css('display','none');
-                $(this).html('Register');
-                $span.html("Don't have account?");
-                $signTitle.html("Login");
+            $signin.css('display', 'block');
+            $signup.css('display', 'none');
+            $(this).html('Register');
+            $span.html("Don't have account?");
+            $signTitle.html("Login");
 
-            }else{
+        } else {
 
-                $signin.css('display','none');
-                $signup.css('display','block');
-                $(this).html('Log In');
-                $span.html("Already have an account?");
-                $signTitle.html("Register");
-            }
-        })
-
-        var $loginup = $('.loginup');   
-        $loginup.click(function () {
-            $mask.fadeIn(100);
-            $sign.slideDown(200);
-            return false;
-        })
-
-        var $close = $('.login-close'),
-            $mask = $('.login-form-mask'),
-            $sign = $('.sign');
-
-        $sign.click(function () {
-            return false;
-        })
-
-        $close.click(function (e) {
-           // e.stopPropagation();
-            fadeOut();
-
-        })
-
-        $(document).click(function (e) { 
-            //e.stopPropagation();
-            fadeOut();
-        })
-        function fadeOut(){
-            $mask.fadeOut(100);
-            $sign.slideUp(200);
+            $signin.css('display', 'none');
+            $signup.css('display', 'block');
+            $(this).html('Log In');
+            $span.html("Already have an account?");
+            $signTitle.html("Register");
         }
-    
+    })
+
+    var $loginup = $('.loginup');
+    $loginup.click(function () {
+        $mask.fadeIn(100);
+        $sign.slideDown(200);
+        return false;
+    })
+
+    var $close = $('.login-close'),
+        $mask = $('.login-form-mask'),
+        $sign = $('.sign');
+
+    $sign.click(function () {
+        return false;
+    })
+
+    $close.click(function (e) {
+        // e.stopPropagation();
+        fadeOut();
+
+    })
+
+    $(document).click(function (e) {
+        //e.stopPropagation();
+        fadeOut();
+    })
+
+    function fadeOut() {
+        $mask.fadeOut(100);
+        $sign.slideUp(200);
+    }
+
 
     var loginUp = document.getElementsByClassName('login-up')[0],
         loginIn = document.getElementsByClassName('login-in')[0],
         signUp = document.getElementsByClassName('signup')[0],
         signIn = document.getElementsByClassName('signin')[0];
 
-    
+
     // signup
-    loginUp.onclick = function () { 
-        var data1 = 'username=' + signUp["username"].value + '&' + 'pass='+ signUp["pass"].value + '&' + 'repeatpass=' + signUp["repeatpass"].value;
-        var  reg = /^[\u4E00-\u9FA5]{2,5}$/;
-        ajax('post','/signup',data1,"application/x-www-form-urlencoded");
+    loginUp.onclick = function () {
+        var data1 = 'username=' + signUp["username"].value + '&' + 'pass=' + signUp["pass"].value + '&' +
+            'repeatpass=' + signUp["repeatpass"].value;
+        var reg = /^[\u4E00-\u9FA5]{2,5}$/;
+        ajax('post', '/signup', data1, "application/x-www-form-urlencoded");
         xhr.onreadystatechange = function () {
-            if(xhr.readyState==4&&xhr.status>=200&&xhr.status<300){
-             let  text = JSON.parse(xhr.responseText).code;  
-             console.log(text)  
-               if(text == 3){
-                   fadeOut();
-                   swal({title:"Login Successful", text:"Good Job!", type:"success", showConfirmButton: false});
-                   setTimeout(()=>{
-                    window.location.reload();
-                },1000)
-               }else{
-                fadeOut();
-                swal({title:"Username already exists", text:"Please enter a different username", type:"error", showConfirmButton: false});
-               }
-               
+            if (xhr.readyState == 4 && xhr.status >= 200 && xhr.status < 300) {
+                let text = JSON.parse(xhr.responseText).code;
+                console.log(text)
+                if (text == 3) {
+                    fadeOut();
+                    swal({
+                        title: "Login Successful",
+                        text: "Good Job!",
+                        type: "success",
+                        showConfirmButton: false
+                    });
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1000)
+                } else {
+                    fadeOut();
+                    swal({
+                        title: "Username already exists",
+                        text: "Please enter a different username",
+                        type: "error",
+                        showConfirmButton: false
+                    });
+                }
+
             }
         }
 
     }
 
     //login
-    loginIn.onclick = function () { //login
+    loginIn.onclick = function () {
         var data2 = 'username=' + signIn["username"].value + '&' + 'pass=' + signIn["pass"].value;
-        ajax('post','/signin',data2,"application/x-www-form-urlencoded");
+        ajax('post', '/signin', data2, "application/x-www-form-urlencoded");
         xhr.onreadystatechange = function () {
-            if(xhr.readyState==4&&xhr.status>=200&&xhr.status<300){
-             let  text = JSON.parse(xhr.responseText).code;   
+            if (xhr.readyState == 4 && xhr.status >= 200 && xhr.status < 300) {
+                let text = JSON.parse(xhr.responseText).code;
                 console.log(text);
-                
-               if(text===1){
-                fadeOut();
-               
-                setTimeout(()=>{
-                    window.location.reload();
-                },1000)
-               }else if(text === 2){
-                swal({title:"Incorrect login credentials", text:"try again", type:"warning",showConfirmButton: false });
-               }else{
-                swal({title:"Username does not exist", text:"try again", type:"error",showConfirmButton: false});
-               }
-               
+
+                if (text === 1) {
+                    fadeOut();
+
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1000)
+                } else if (text === 2) {
+                    swal({
+                        title: "Incorrect login credentials",
+                        text: "try again",
+                        type: "warning",
+                        showConfirmButton: false
+                    });
+                } else {
+                    swal({
+                        title: "Username does not exist",
+                        text: "try again",
+                        type: "error",
+                        showConfirmButton: false
+                    });
+                }
+
             }
         }
-      
+
     }
 </script>

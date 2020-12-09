@@ -8,109 +8,31 @@
     <% include login %>
 <% } %>
 <div class="information-table padmar">
-    <h2>个人资料</h2>
-     <span class="err">保存失败!</span>
+    <h2>Profile</h2>
+     <span class="err">Error</span>
    <% if(session&&session.user===user.name){ %>
-    <div class="change"><a href="javascript:;" id="edit">修改</a><a href="javascript:;" id="save">保存 </a><a href="javascript:;" id="cancel">取消</a></div>
+    <div class="change"><a href="javascript:;" id="edit">Edit</a><a href="javascript:;" id="save">Save</a><a href="javascript:;" id="cancel">Cancel</a></div>
     <% } %>
     <form  role="form">
         <ul>
             <% if(session&&session.user===user.name){ %>
-            <li><span>头像</span><img src="images/<%= user.avator %>" alt="" class="img-head"><input type="hidden"></li>
+            <li><span>Photo</span><img src="images/<%= user.avator %>" alt="" class="img-head"><input type="hidden"></li>
             <% }else{ %>
-                <li><span>头像</span><img src="images/<%= user.avator %>" alt="" class="img-head"><input type="hidden"></li>
+                <li><span>Photo</span><img src="images/<%= user.avator %>" alt="" class="img-head"><input type="hidden"></li>
 
             <% } %>
-            <li><span>昵称</span><input type="text" name="username" placeholder="请输入昵称" value="<%= user.name %>" readonly></li>
-            <li><span>职位</span><input type="text" name="job" placeholder="请输入职位" value="<%= user.job %>" readonly></li>
-            <li><span>公司</span><input type="text" name="company" placeholder="请输入公司" value="<%= user.company %>" readonly></li>
-            <li><span>个人简介</span><input type="text" name="introduce" placeholder="请输入个人简介" value="<%= user.introdu %>" readonly></li>
-            <li><span>个人主页</span><input type="text" name="address" placeholder="请输入个人地址" value="<%= user.userhome %>" readonly></li>
-            <li><span>GitHub</span><input type="text" name="github" placeholder="请输入github地址" id="dk" value="<%= user.github %>" readonly></li>
+            <li><span>Username</span><input type="text" name="username" placeholder="Name" value="<%= user.name %>" readonly></li>
+            <li><span>Job</span><input type="text" name="job" placeholder="Job" value="<%= user.job %>" readonly></li>
+            <li><span>Company</span><input type="text" name="company" placeholder="Company" value="<%= user.company %>" readonly></li>
+            <li><span>Bio</span><input type="text" name="introduce" placeholder="Add a bio" value="<%= user.introdu %>" readonly></li>
+            <li><span>Website</span><input type="text" name="address" placeholder="Website" value="<%= user.userhome %>" readonly></li>
+            <li><span>GitHub</span><input type="text" name="github" placeholder="GitHub" id="dk" value="<%= user.github %>" readonly></li>
             <input type="hidden" id="blod">
         </ul>
     </form>
 </div>
 <% if(session&&session.user===user.name){ %>
 <script>
-    var imgUp = document.getElementById('head-img'),
-        blod = document.getElementById('blod'),
-        imgHead = document.getElementsByClassName('img-head')[0];
-    
-
-    var imgUrl,avators;
-    imgUp.onchange = function(){
-       /* if(this.files.length!=0){
-            var file = new FormData(),
-                imgs = this.files[0];
-            file.append("img",imgs);
-        }
-        if(!file){
-            return;
-        }*/
-        if(this.files.length != 0){
-            var file = this.files[0],
-                reader = new FileReader();
-            if(!reader){
-                this.value = '';
-                return;
-            }
-
-            reader.onload = function(e){
-                this.value = '';
-                    imgUrl = e.target.result;
-                   // console.log(imgUrl)
-                var image = new Image();
-					 image.onload = function(){
-						 var canvas = document.createElement('canvas');
-						 var ctx = canvas.getContext("2d");
-						 canvas.width = 100;
-						 canvas.height = 100;
-						 ctx.clearRect(0, 0, 100, 100);
-						 ctx.drawImage(image, 0, 0, 100, 100);
-                         var blobs = canvas.toDataURL("image/png");
-                         blod.value = blobs;
-                    
-                        
-					 }
-					 image.src = e.target.result;                     
-				};              
-				reader.readAsDataURL(file);
-        }
-        var timer = setTimeout(()=>{
-            let base64 = blod.value.replace(/\+/g,'%2B');
-            var avator ='avator=' + base64;
-       // console.log(avators)
-       console.log(base64)
-        ajax('post','/personalImg',avator,"application/x-www-form-urlencoded");
-        xhr.onreadystatechange = function(){
-            if(xhr.readyState===4&&xhr.status>=200&&xhr.status<300){
-                console.log("test")
-                imgHead.setAttribute("src",blod.value);
-                let imgTitle = document.getElementsByClassName('img-title')[0];
-                imgTitle.setAttribute('src',blod.value);
-            }
-        }
-    
-        },3000)
-    }
-        
-       
-     
-
-    function getObjectURL(file){
-        var url = null;
-        if(window.createObjectURL != undefined){
-            url = window.createObjectURl(file);
-        }else if(window.URL != undefined){
-             // mozilla(firefox)
-             url = window.URL.createObjectURL(file);
-        }else if(window.webkitURL != undefined){
-             // webkit or chrome
-             url = window.webkitURL.createObjectURL(file);
-        }
-        return url;
-    }
 
     var edit = document.getElementById('edit'),
         save = document.getElementById('save'),
@@ -119,7 +41,7 @@
     var inputs = document.getElementsByTagName('input'),
         len = inputs.length,
         inputArr = new Array();
-    edit.onclick = function () {    //编辑
+    edit.onclick = function () {    //Edit
         save.style.display = "block";
         cancel.style.display = "block";
         this.style.display = "none";
@@ -130,7 +52,7 @@
         console.log(inputArr)
     }
 
-    cancel.onclick = function () {  //取消编辑
+    cancel.onclick = function () {  //Cancel Edit
         for(let i = 2; i<len; i++){
             inputs[i].value = inputArr[i-2];
             inputs[i].setAttribute('readonly',true);
@@ -141,7 +63,7 @@
         edit.style.display = "block";
     }
 
-    save.onclick = function () {    //保存编辑操作
+    save.onclick = function () {    //Save
         let dataStr;
         let  inputs = document.getElementsByTagName('input');
             dataStr = 'username=' + inputs[2].value + '&'+
