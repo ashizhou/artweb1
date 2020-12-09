@@ -1,6 +1,16 @@
 // scripts/install.js
+const execSync = require('child_process').execSync
+
+const command = `npm install node-sass --sass-binary-path="dependencies/${process.platform}-x64-72_binding.node"`
+
+const options = { stdio: 'inherit' }
+execSync(command, options)
+execSync('npm rebuild node-sass', options)
+
+
 const fs = require('fs')
 const path = require('path')
+
 
 // create vendor directory if it does not exist
 const vendor = 'node_modules/node-sass/vendor'
