@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "supervisor --harmony index",
-    "test": "/node_modules/mocha/bin/mocha --harmony test"
+    "test": "./node_modules/mocha/bin/mocha --harmony test"
   },
   "author": "",
   "license": "ISC",
