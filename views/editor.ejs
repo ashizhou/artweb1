@@ -1,106 +1,104 @@
 <% include header %>
-<link rel="stylesheet" href="/css/editor.css">
 <script src="https://unpkg.com/wangeditor/dist/wangEditor.min.js"></script>
+<script src="https://unpkg.com/i18next/dist/umd/i18next.js"></script>
 <% include nav %>
-<div class="editor1"></div>
-<div id="edit">
-    <span class="edit-tips">Success</span>
-    <span class="num"></span>
-    <select name="derection" id="derect">
-        <option value="0">type</option>
-        <option value="culture">Art And Culture</option>
-        <option value="Event">Events&Review</option>
-        <option value="How">How to</option>
-        <option value="Opportunity">Opportunity</option>
-        <option value="other">Other</option>
-    </select>
-    <a href="javascript:;" class="editorUp"><span class="fa fa-share"></span></a>
-</div>
-<div id="article">
-    <input type="text" placeholder="Title" name="title" class="article-title"/>
 
-    <div class="editor2"></div>
+    
+    <div class="cantainer row justify-content-between" style="padding-top: 20px;">
+    <div class="col-8">
+        <input type="text" style="border: 1px solid #ccc;" class="form-control" id="title" placeholder="Title">
+    </div>
+    <div class="input-group col-4" >
+        <div class="input-group-prepend" >
+          <label class="input-group-text" style="border: 1px solid #ccc;" for="inputGroupSelect01">Catagory</label>
+        </div>
+        <select class="custom-select" style="border: 1px solid #ccc;" id="inputGroupSelect01">
+            <option selected>Choose...</option>
+            <option value="culture">Art and Culture</option>
+            <option value="event">Events & Review</option>
+            <option value="how">How to</option>
+            <option value="opportunity">Opportunity</option>
+            <option value="other">Other</option>
+        </select>
+      </div>
+
+    
+
+    </div>
+    <p></p>
+    <div id="editor">
+        <div id="toolbar-container" style="border: 1px solid #ccc; border-radius: 225px 25px 25px 25px/25px 25px 25px 225px;" class="toolbar"></div>
+        <p></p>
+        <div id="text-container" style="border: 1px solid #ccc; min-height: 300px; border-radius: 15px 15px 15px 15px;" class="text"></div>
+    </div>
+    <p></p>
+    <button style=" float: right;margin:10px 5% 10px 0;"class="btn btn-info">Submit</button>
 
 </div>
-<!-- <div class="login-form-mask"></div> -->
-<!-- <div class="tip-box">Success</div> -->
-<script src="/js/mask.js"></script>
 <script>
-//launch editor
-var E = window.wangEditor
-var editor = new E('.editor1','.editor2')
-// 使用 base64 保存图片
-editor.customConfig.uploadImgShowBase64 = true  
-editor.customConfig.uploadImgMaxSize = 3 * 1024 * 1024;
-// limit maximum image length
-editor.customConfig.uploadImgMaxLength = 5;
-editor.customConfig.pasteFilterStyle = true;
-editor.create();
-editor.txt.html('<span>Enter.......</span>');
+    const E = window.wangEditor
+    const editor = new E('#toolbar-container', '#text-container')
+    editor.config.zIndex = 500
+    editor.config.placeholder = 'Share your knowledge or insight!'
+    editor.config.lang = "en"
+    editor.i18next = window.i18next
+    editor.config.menus = [
+        'head',
+        'bold',
+        'fontSize',
+        'italic',
+        'underline',
+        'strikeThrough',
+        'indent',
+        'lineHeight',
+        'foreColor',
+        'backColor',
+        'link',
+        'list',
+        'justify',
+        'quote',
+        'emoticon',
+        'image',
+        'video',
+        'splitLine',
+        'undo',
+        'redo',
+    ]
+    editor.customConfig.uploadFileName = 'myfilename'
+    editor.config.uploadImgServer = "/upload-img"
+    editor.config.uploadImgShowBase64 = true
+    editor.config.showLinkImg = false
 
-//Word Count
-var num = document.getElementsByClassName('num')[0],
-    editType = document.getElementById('derect'),
-    editContent = document.getElementsByClassName('editor2')[0];
-    editContent.onkeyup = function () {
-        num.innerHTML = (editContent.innerHTML.length - 120) + 'Words';
-    }
-//ajax upleading
-var editorUp = document.getElementsByClassName('editorUp')[0],
-    editTitle = document.getElementsByClassName('article-title')[0],
-    editTips = document.getElementsByClassName('edit-tips')[0];
-
-    editorUp.onclick = function () {
-      //  console.log(editContent.innerHTML)
-    
-        if(editTitle.value&&editContent.innerHTML.length>132){
-            console.log(editor.txt.text())
-            if(editType.value==0){
-          fadeout('Catagories cannot be empty ');
-            return false;
+    editor.customConfig.uploadImgHooks = {
+            success: function (xhr, editor, result) {
+                console.log('upload success insert success')
+            },
+            fail: function (xhr, editor, result) {
+                console.log('upload success insert failed')
+            },
+            error: function (xhr, editor) {
+                console.log('upload error')
+            },
+            timeout: function (xhr, editor) {
+                console.log('timeout')
+            },
+            customInsert: function (insertImg, result, editor) {
+                console.log(' upload callback');
+                var url = result.url[0];
+                insertImg(url)
             }
-        let data = { "title": editTitle.value,"content":editor.txt.html(),"type":editType.value };
-       let data2 =  JSON.stringify(data);
-    
-        console.log(data2);
-        ajax('post','/articles',data2,'application/json');
-        xhr.onreadystatechange = function () {
-            if(xhr.readyState==4&&xhr.status>=200&&xhr.status<300){
-                let  text = xhr.responseText;   
-                console.log(text)
-                if(text==1){
-                    swal({
-                        title: "Post Successful",
-                        text: "Good Job!",
-                        type: "success",
-                        showConfirmButton: false
-                    });
-                   setTimeout(()=>{
-                    window.location.href = '/home';
-                   },1500);
-                }else{
-                    swal('Ooops', 'Internal Server Error', 'error')
-                    // editTips.innerHTML = '发表失败';
-                    // editTips.style.animation = 'fadeout 2s';
-                }
-            }
-        }
-        }else{
-            swal('Ooops', 'Title and Content cannot be Empty', 'error')
-            // editTips.innerHTML = '文章内容和标题不能为空';
-            // editTips.style.animation = 'fadeout 2s';
-        }
-     
+        };
+
+    editor.config.customAlert = function () {
+        swal('Ooops', 'Uploading Failed', 'error')
     }
+    editor.config.uploadImgParamsWithUrl = true
+    editor.config.uploadImgTimeout = 5 * 1000
+    editor.create()
 
     
-    function fadeout(text){
-        editTips.innerHTML = text;
-        editTips.style.opacity = 1;
-        setTimeout(()=>{
-            editTips.style.opacity = 0;
-        },1000)
-    }
-
+    
 </script>
-<% include footer %>
+</body>
+
+</html>

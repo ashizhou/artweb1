@@ -1,5 +1,5 @@
 .art-list{
-    width:70%;
+    width:100%;
     margin:auto;
     margin-top: 20px;
 }
@@ -65,7 +65,7 @@
 }
 /*评论列表*/
 .comment{  
-    width:70%;
+    width:100%;
     margin:40px auto 15px auto;
     padding-bottom: 10px;
     background: #fff;
@@ -114,7 +114,7 @@
 }
 .comment-taps{
     position: fixed;
-    top:200px;
+    top:300px;
     right:10%;
 }
 .comment-taps li.list{

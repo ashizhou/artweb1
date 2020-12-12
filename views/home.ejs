@@ -7,7 +7,6 @@
 <% include login %>
 <% } %>
 
-
 <div class="art-tap padmar">
     <ul class="tip">
         <li class="all"><a href="javascript:;" class="label label-default">All</a></li>
@@ -51,6 +50,7 @@
     <% } %>
 </div>
 <div><ul class="pagination justify-content-center" style="padding-top: 30px" id="page"><ul></div>
+    </div>
 <script src="/js/pagination.js"></script>
 <script>
     window.onload = function () {
@@ -64,8 +64,8 @@
         selector: '#page',
         totalPage: '<%= postsPageLength %>',
         currentPage: 1,
-        prev: 'Previous',
-        next: 'Next',
+        prev: false,
+        next: false,
         first: false,
         last: false,
         showTotalPage: false,

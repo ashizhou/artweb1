@@ -48,7 +48,7 @@ router.get('/artdetail/:postId', async(ctx, next) => {
         await userModel.ValidateLikeByArtId([ctx.session.user,postId])
         .then(result =>{
             validator=result
-            console.log("fa-heart validator:"+validator)
+            console.log("fa-heart validator:",validator)
         }).catch((err) => {
             console.log(err)
         })

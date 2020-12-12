@@ -1,7 +1,7 @@
 body {
     background: #f4f5f5;
     font-size: 16px;
-    padding-top: 100px
+    padding-top: 100px !important;
 }
 
 ul,
@@ -39,12 +39,50 @@ navbar
     display: inline-block;
     margin-right: -30px
 }
-
+/*editor table*/
 table {
     border-top: 1px solid #ccc;
     border-left: 1px solid #ccc;
 }
+option{
+    display: block;
+    text-decoration-line: none;
+text-decoration-style: solid;
+text-decoration-color: currentcolor;
+text-decoration-thickness: auto;
+	width: 100%;
+	padding: 0.25rem 1.5rem;
+	clear: both;
+	font-weight: 200;
+	color: #212529;
+	text-align: inherit;
+	text-decoration: none;
+	white-space: nowrap;
+	background-color: transparent;
+    border: 0;
+    font-family: "Neucha", cursive;
+}
+.w-e-menu {
+    position: relative;
+    display: flex;
+    width: 40px;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    cursor: pointer;
+}
 
+.w-e-toolbar .w-e-droplist .w-e-dp-title {
+    text-align: center;
+    color: #999;
+    line-height: 2;
+    border-bottom: 1px solid #f1f1f1;
+    font-size: 13px;
+}
+#editor p{
+    font-size: 16px;
+}
 table td,
 table th {
     border-bottom: 1px solid #ccc;
@@ -57,7 +95,7 @@ table th {
     text-align: center;
 }
 
-/* blockquote 样式 */
+/*editor blockquote */
 blockquote {
     display: block;
     border-left: 8px solid #d0e5f2;
@@ -68,7 +106,7 @@ blockquote {
     background-color: #f1f1f1;
 }
 
-/* code 样式 */
+/* editor code */
 code {
     display: inline-block;
     *display: inline;
@@ -82,33 +120,15 @@ code {
 pre code {
     display: block;
 }
-
-/*
- *footer
- */
-
-.footer {
-    position: relative;
-    bottom: 0;
-    width: 100%;
-    /* Set the fixed height of the footer here */
-    height: 60px;
-    line-height: 60px;
-    /* Vertically center the text there */
-    background-color: #f5f5f5;
+/* editor ul ol */
+ul,
+ol {
+    margin: 10px 0 10px 20px;
 }
 
-.footer>.container {
-    padding-right: 15px;
-    padding-left: 15px;
-}
-
-
-/*
- *home nav tap
- */
+/* home nav tap */
 .art-tap{
-    width:70%;
+    width:90%;
     margin:auto;
 }
 .art-tap ul{
@@ -131,7 +151,7 @@ pre code {
     font-size:16px;
 }
 .art-list{
-    width:70%;
+    width:90%;
     margin:auto;
     margin-top:30px;
     background: #fff;
@@ -162,3 +182,19 @@ pre code {
     font-size: 45px;
 }
 
+/*footer*/
+.footer {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    line-height: 60px;
+    /* Vertically center the text there */
+    background-color: #f5f5f5;
+}
+
+.footer>.container {
+    padding-right: 15px;
+    padding-left: 15px;
+}

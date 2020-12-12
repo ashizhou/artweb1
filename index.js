@@ -9,6 +9,7 @@ const config = require('./config/default.js');    //引入默认文件
 const views = require("koa-views");   //模板呈现中间件
 const koaStatic = require("koa-static");  //静态资源加载中间件
 const staticCache = require('koa-static-cache')
+const multer = require('koa-multer')
 const app = new koa();
 
 //session storage
