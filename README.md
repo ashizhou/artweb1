@@ -1,6 +1,6 @@
 
 # Art Social Network
-[![time tracker](https://wakatime.com/badge/github/ashizhou/artweb1.svg)](https://wakatime.com/badge/github/ashizhou/artweb1)
+[![time tracker](https://wakatime.com/badge/github/ashizhou/koa-artweb.svg)](https://wakatime.com/badge/github/ashizhou/koa-artweb)
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
