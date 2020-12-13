@@ -64,10 +64,15 @@
         'undo',
         'redo',
     ]
-    editor.customConfig.uploadFileName = 'myfilename'
+    
     editor.config.uploadImgServer = "/upload-img"
     editor.config.uploadImgShowBase64 = true
     editor.config.showLinkImg = false
+    editor.customConfig.uploadFileName = 'mypic'
+    editor.customConfig.uploadImgHeaders = {
+  'authorization': 'Bearer '+localStorage.token,
+  'enctype':'multipart/form-data'
+}
 
     editor.customConfig.uploadImgHooks = {
             success: function (xhr, editor, result) {

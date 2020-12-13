@@ -1,13 +1,13 @@
 const koa = require("koa");   //node framework
 const path = require("path");  
 const bodyParser = require("koa-bodyparser"); //koa middleware bodyparser
-const ejs = require("ejs");   //front framwork ejs
+const ejs = require("ejs");   //Front: ejs
 const session = require("koa-session-minimal");   //middleware sql
 const MysqlStore = require("koa-mysql-session");  //middleware sql
 const router = require("koa-router");     //middleware router
-const config = require('./config/default.js');    //引入默认文件
-const views = require("koa-views");   //模板呈现中间件
-const koaStatic = require("koa-static");  //静态资源加载中间件
+const config = require('./config/default.js');    //middleware sql config
+const views = require("koa-views");   //middleware views
+const koaStatic = require("koa-static");  //middleware static file serving (image uploading)
 const staticCache = require('koa-static-cache')
 const multer = require('koa-multer')
 const app = new koa();
@@ -20,29 +20,32 @@ const sessionMysqlConfig = {
     host: config.database.HOST,
 }
 
-//配置session中间件
+
+//middleware session config
 app.use(session({
     key: 'USER_SID',
     store: new MysqlStore(sessionMysqlConfig)
 }))
 
 
-//配置静态资源加载中间件
+//middleware static 
 app.use(koaStatic(
     path.join(__dirname , './public')
 ))
 
-//配置服务端模板渲染引擎中间件
+//ejs config
 app.use(views(path.join(__dirname, './views'),{
     extension: 'ejs'
 }))
 
-//使用表单解析中间件
+//bodyparser config
 app.use(bodyParser({
     formLimit:"5mb",
     jsonLimit:"5mb",
     textLimit:"5mb"
 }));
+
+app.use(require('koa-static')('./public/upload'))
 
 //routers
 //login+logout+signup
@@ -55,8 +58,10 @@ app.use(require('./routers/personal.js').routes())
 app.use(require('./routers/artdetail.js').routes())
 //share
 app.use(require('./routers/share.js').routes())
+//editor
+app.use(require('./routers/editor.js').routes())
 
-//监听在8080端口
+//listening at 8080
 app.listen(8080) 
 
 console.log(`listening on port ${config.port}`)

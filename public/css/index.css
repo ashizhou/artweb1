@@ -198,3 +198,34 @@ ol {
     padding-right: 15px;
     padding-left: 15px;
 }
+
+
+.tt-dropdown-menu {
+	background-color: #FFFFFF;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	border-radius: 8px;
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+	margin-top: 12px;
+	padding: 8px 0;
+	width: 300px;
+}
+.tt-suggestion {
+	font-size: 16px;
+	line-height: 16px;
+	padding: 3px 20px;
+}
+.tt-suggestion.tt-is-under-cursor {
+	background-color: #0097CF;
+	color: #FFFFFF;
+}
+.tt-suggestion p {
+	margin: 0;
+}
+.title-name{
+    margin: 0 20px 5px 20px;
+    padding:3px 0;
+    border-bottom: 1px solid#ccc;
+}
+.tt-hint {
+    visibility:hidden;
+    }

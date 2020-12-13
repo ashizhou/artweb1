@@ -22,9 +22,10 @@
 
                     <form class="form-inline my-2 my-lg-0">
                         <div class="form-group mr-sm-2">
-                        <input class="form-control" id="search" type="text" placeholder="Search">
-                        <button class="btn btn-secondary my-2 my-sm-0" id="search-btn" type="submit">Search</button>
-                          </div>
+                            <input class="form-control typeahead tt-query" type="text" name="typeahead"
+                                autocomplete="off" spellcheck="false" placeholder="Search Artists">
+                            <button class="btn btn-secondary my-2 my-sm-0" id="search-btn" type="button">Search</button>
+                        </div>
                     </form>
                     <ul class="navbar-nav ml-auto">
                         <% if(session.user){ %>
@@ -44,10 +45,10 @@
                         <script>
                             var imgTitle = document.getElementsByClassName('img-title')[0],
                                 menu = document.getElementsByClassName('menu')[0];
-                                imgTitle.onclick = function (event) {
-                                    showTap();
-                                    event.stopPropagation();
-                                }
+                            imgTitle.onclick = function (event) {
+                                showTap();
+                                event.stopPropagation();
+                            }
 
                             document.body.addEventListener('click', function (event) {
                                 menu.style.display = 'none';
@@ -66,7 +67,8 @@
                         </script>
                         <% }else{ %>
                         <li class="nav-item login">
-                            <a class="loginup nav-link" href="javascript:;"><i class="fa fa-user"></i>SIGN UP | LOGIN</a>
+                            <a class="loginup nav-link" href="javascript:;"><i class="fa fa-user"></i>SIGN UP |
+                                LOGIN</a>
                         </li>
                         <% } %>
 
@@ -76,3 +78,16 @@
         </div>
     </header>
     <div class="container">
+        <script  type="text/javascript" src="/js/typeahead.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('input.typeahead').typeahead({
+                    name: 'artists',
+                    remote: '/search?key=%QUERY',
+                    templates: {
+                          empty: 'No Results'
+                        }
+                });
+            });
+            
+        </script>

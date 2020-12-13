@@ -95,4 +95,22 @@ router.get('/editor', async (ctx, next) => {
     })
 })
 
+router.get('/search',async(ctx,next)=>{
+    let key = ctx.request.querystring.split('=')[1],
+        rows,
+        data=[];
+    let _sql=`SELECT Author from art where Author like '%${key}%'`;
+    await userModel.query(_sql)
+    .then(result => {
+        rows = result
+        for(i=0;i<rows.length;i++)
+      {
+        data.push(rows[i].Author);
+      }
+      ctx.body=JSON.stringify(data);
+	});
+});
+
+     
+        
 module.exports = router
