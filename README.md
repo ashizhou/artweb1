@@ -130,7 +130,7 @@ $ pm2 start index.js
 
 - [ ] Post
 
-- [ ] BookMark
+- [x] BookMark
 
 <!-- CONTRIBUTING -->
 ## Contributing
