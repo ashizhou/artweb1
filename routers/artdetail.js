@@ -47,13 +47,21 @@ router.get('/artdetail/:postId', async(ctx, next) => {
     if (ctx.session.user){
         await userModel.ValidateLikeByArtId([ctx.session.user,postId])
         .then(result =>{
-            validator=result
-            console.log("fa-heart validator:",validator)
+            validator1=result
+            console.log("fa-heart validator:",validator1)
+        }).catch((err) => {
+            console.log(err)
+        })
+        await userModel.ValidateMarkByArtId([ctx.session.user,postId])
+        .then(result =>{
+            validator2=result
+            console.log("fa-bookmark validator:",validator2)
         }).catch((err) => {
             console.log(err)
         })
     }else{
-        validator=[]
+        validator1=[];
+        validator2=[];
     }
     
     await ctx.render('artdetail', {
@@ -63,7 +71,8 @@ router.get('/artdetail/:postId', async(ctx, next) => {
         commentLength:count,
         commentPageLength: Math.ceil(count / 10),
         pageOne: pageOne,
-        validator: validator
+        validator1: validator1,
+        validator2: validator2
     })
 
 })
@@ -117,7 +126,29 @@ router.get('/addHeart/:artId', async (ctx, next) => {
             })
     }
 })
-
+//Like
+router.get('/addbookmark/:artId', async (ctx, next) => {
+    console.log(ctx.query.flag)
+    let flag = ctx.query.flag,
+        artId = ctx.params.artId;
+    if (flag == 1) {
+        await userModel.insertBookMark([ctx.session.user, artId])
+            .then(() => {
+                ctx.body = 'true';
+                console.log('bookmark sql bookmark+1');
+            }).catch((err) => {
+                console.log(err);
+            })
+    } else if (flag == 2) { //Dislike
+        await userModel.poseBookMark([ctx.session.user, artId])
+            .then(() => {
+                ctx.body = 'true';
+                console.log('bookmark sql bookmark-1');
+            }).catch((err) => {
+                console.log(err);
+            })
+    }
+})
 //Comment
 router.post('/comment/:artId', async (ctx, next) => {
     console.log(ctx.request.body.comments)

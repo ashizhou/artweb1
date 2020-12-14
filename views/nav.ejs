@@ -23,7 +23,7 @@
                     <form class="form-inline my-2 my-lg-0">
                         <div class="form-group mr-sm-2">
                             <input class="form-control typeahead tt-query" type="text" name="typeahead"
-                                autocomplete="off" spellcheck="false" placeholder="Search Artists">
+                                autocomplete="off" spellcheck="false" id="search-input" placeholder="Search Artists">
                             <button class="btn btn-secondary my-2 my-sm-0" id="search-btn" type="button">Search</button>
                         </div>
                     </form>
@@ -78,16 +78,28 @@
         </div>
     </header>
     <div class="container">
-        <script  type="text/javascript" src="/js/typeahead.min.js"></script>
+        <script type="text/javascript" src="/js/typeahead.min.js"></script>
         <script>
             $(document).ready(function () {
                 $('input.typeahead').typeahead({
                     name: 'artists',
-                    remote: '/search?key=%QUERY',
+                    remote: '/autocomplete?key=%QUERY',
                     templates: {
-                          empty: 'No Results'
-                        }
+                        empty: 'No Results'
+                    }
                 });
             });
-            
+
+            let searchbtn = document.getElementById('search-btn');
+                searchbtn.onclick = function () {
+                    let artist= document.getElementById('search-input').value;
+                        ajax('get', '/search?artist='+artist, null);
+                        xhr.onreadystatechange = function () {
+                         if (xhr.readyState == 4 && xhr.status >= 200 && xhr.status < 300) {
+                            window.location.href ='/search?artist='+artist;
+                    }
+                }
+            }
+               
+        
         </script>

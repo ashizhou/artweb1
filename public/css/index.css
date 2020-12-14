@@ -27,9 +27,7 @@ input {
     background: #fff;
 }
 
-/*
-navbar
-*/
+/*navbar*/
 .nav-link {
     text-transform: uppercase;
     font-weight: 500;
@@ -199,6 +197,7 @@ ol {
     padding-left: 15px;
 }
 
+/*autocomplete*/
 
 .tt-dropdown-menu {
 	background-color: #FFFFFF;
@@ -229,3 +228,9 @@ ol {
 .tt-hint {
     visibility:hidden;
     }
+
+/*search result prompt*/
+.search-length{
+    margin-left:50px;
+    color: gray
+}

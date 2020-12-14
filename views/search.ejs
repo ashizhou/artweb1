@@ -1,0 +1,44 @@
+<% include header %>
+<% if(!session.user){ %>
+<link rel="stylesheet" href="/css/login.css">
+<% } %>
+<% include nav %>
+<% if(!session.user){ %>
+<% include login %>
+<% } %>
+
+<div class="search-length">
+    <p> Result:&nbsp;&nbsp; <%= postsLength%> &nbsp; Arts </p>
+</div>
+<div class="center-block container art-list">
+    <% art.forEach(function(res){ %>
+    <div class="content row">
+        <div class="col-lg-6">
+            <a href="/artdetail/<%= res.id %>" >
+                <img src="<%=res.IMGURL%>" loading="lazy" alt="Unnamed image" width="400" height="auto">
+            </a>
+        </div>
+        <div class="col-lg-6">
+            <div class="content-info">
+                <h3 class="title"><%= res.Title %></h3>
+                <p class="author"><%= res.Author %></p>
+                <p class="times"><%= res.Date %></p>
+                <p class="label label-info"><%= res.Type %></p>
+                <span><i class="fa fa-heart" style="color:red"></i>&nbsp;<%= res.likes %>&nbsp;&nbsp;&nbsp;&nbsp;<i
+                        class="fa fa-comment"
+                        style="color: skyblue"></i>&nbsp;<%= res.comments %>&nbsp;&nbsp;&nbsp;&nbsp;<span
+                        class="pv-item">views&nbsp;<span class="pv"><%= res.pv %></span></span>
+
+            </div>
+        </div>
+    </div>
+
+    <% }) %>
+    <% if(postsLength==0){ %>
+    <div class="nothing">
+        <p><i class="fa fa-list-alt"></i></p>
+        <p>Nothing here</p>
+    </div>
+    <% } %>
+</div>
+<% include footer %>

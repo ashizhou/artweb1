@@ -7,36 +7,7 @@
     width:50px;
     height:50px;
 }
-.post-head{
-    margin-top:25px;
-}
-.post-head a{
-    color: #000;
-}
-.post-head img{
-    float: left;
-    margin-right:5px;
-}
-.post-head h4{
-    padding-top:5px;
-    height:16px;
-    line-height:16px;
-}
-.post-head .author span{
-    font-size:14px;
-    color: gray;
-}
-.post-head .editself,.post-head .delete{
-    font-size:14px;
-}
-.post-type{
-    float: right;
-    margin-top:10px;
-    color: #fff;
-    width:80px;
-    height:25px;
-    line-height:25px;
-}
+
 .art-title{
     font-size: 30px;
     padding-bottom: 20px;
@@ -63,7 +34,7 @@
     color: white;
     border:1px solid lightblue;
 }
-/*评论列表*/
+/*comment list*/
 .comment{  
     width:100%;
     margin:40px auto 15px auto;
@@ -79,7 +50,6 @@
 }
 .comment-list{
     width:100%;
-    /* border:1px solid lightgrey; */
     clear: both;
     padding:0 0 5px 10px;
 }
@@ -115,7 +85,7 @@
 .comment-taps{
     position: fixed;
     top:300px;
-    right:10%;
+    right:8%;
 }
 .comment-taps li.list{
     width:40px;

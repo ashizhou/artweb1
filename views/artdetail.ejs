@@ -33,14 +33,19 @@
 
     <aside>
         <ul class="comment-taps">
-            <% if(validator.length==0){ %>
+            <% if(validator1.length==0){ %>
             <li class="list"><a href="javascript:;" title="Like"><i class="fa fa-heart-o"></i></a></li>
             <% }else{ %>
             <li class="list"><a href="javascript:;" title="Like"><i class="fa fa-heart"></i></a></li>
             <% }%>
             <li style="text-align: center;color: gray;" class="likes"><%= art.likes %></li>
-            <li class="list"><a href="#commentform" title="Comment"><i class="fa fa-comment"></i></a></li>
+            <li class="list"><a href="#commentform" title="Comment"><i class="fa fa-comment-o"></i></a></li>
             <li style="text-align: center;color: gray;" class="iconComment"><%= art.comments %></li>
+            <% if(validator2.length==0){ %>
+            <li class="list" id='bookmark'><a href="javascript:;" title="BookMark"><i class="fa fa-bookmark-o"></i></a></li>
+            <% }else{ %>
+            <li class="list" id='bookmark'><a href="javascript:;" title="BookMark"><i class="fa fa-bookmark"></i></a></li>
+            <% }%>
         </ul>
     </aside>
 
@@ -158,7 +163,9 @@
     // Like
     var postTaps = document.getElementsByClassName('comment-taps')[0];
     var addHeart = postTaps.getElementsByTagName('li')[0],
+        addBookmark=document.getElementById('bookmark'),
         gly = addHeart.getElementsByClassName('fa')[0],
+        gly1 = addBookmark.getElementsByClassName('fa')[0],
         likes = postTaps.getElementsByClassName('likes')[0];
 
     '<% if(session.user){ %>'
@@ -188,7 +195,30 @@
 
         }
     }
+    
+    //Bookmaek <=> Pose bookmark
+    addBookmark.onclick = function () {
+        if (gly1.getAttribute('class').indexOf('fa-bookmark-o') != -1) {
+            ajax('get', '/addbookmark/<%= art.id %>?flag=1', null);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status >= 200 && xhr.status < 300) {
+                    if (xhr.responseText) {
+                        gly1.setAttribute('class', 'fa ' + 'fa-bookmark');
+                    }
+                }
+            }
+        } else {
+            ajax('get', '/addbookmark/<%= art.id %>?flag=2', null);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status >= 200 && xhr.status < 300) {
+                    if (xhr.responseText) {
+                        gly1.setAttribute('class', 'fa ' + 'fa-bookmark-o');
+                    }
+                }
+            }
 
+        }
+    }
 
     //Comment
     let comment = document.getElementsByClassName('create-comment')[0].getElementsByClassName('btn')[0];
@@ -244,6 +274,9 @@
 
     '<% }else{ %>'
     addHeart.onclick = function () {
+        swal('Ooops', 'Please Log in or Sign up', 'error')
+    }
+    addBookmark.onclick = function () {
         swal('Ooops', 'Please Log in or Sign up', 'error')
     }
     '<% } %>'

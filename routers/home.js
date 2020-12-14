@@ -16,7 +16,7 @@ router.get('/home', async (ctx, next) => {
         await userModel.findAllArt()
             .then(result => {
                 postsLength = result.length
-                console.log("all length:"+postsLength)
+                console.log("all length:",postsLength)
             })
         if (ctx.session.user) {
             await userModel.findDataByName(ctx.session.user)
@@ -95,7 +95,7 @@ router.get('/editor', async (ctx, next) => {
     })
 })
 
-router.get('/search',async(ctx,next)=>{
+router.get('/autocomplete',async(ctx,next)=>{
     let key = ctx.request.querystring.split('=')[1],
         rows,
         data=[];

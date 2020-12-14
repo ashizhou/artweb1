@@ -56,8 +56,8 @@ app.use(require('./routers/home.js').routes())
 app.use(require('./routers/personal.js').routes())
 //art
 app.use(require('./routers/artdetail.js').routes())
-//share
-app.use(require('./routers/share.js').routes())
+//search
+app.use(require('./routers/search.js').routes())
 //editor
 app.use(require('./routers/editor.js').routes())
 
